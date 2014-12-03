@@ -13,12 +13,12 @@ import info.emptycanvas.library.object.ZBufferFactory;
 public class EcDrawer implements Drawer, Runnable {
 
     private DarkFortressGUI component;
-    private Mover logic;
     private Terrain terrain;
     private Bonus ennemi;
     private ZBuffer z;
     private int w, h, aw, ah;
     private Vaisseau vaisseau;
+    private Mover mover;
 
     public EcDrawer(DarkFortressGUI darkFortress) {
         this.component = darkFortress;
@@ -41,12 +41,14 @@ public class EcDrawer implements Drawer, Runnable {
      * @see be.ibiiztera.darkfortress.Drawer#setLogic(be.ibiiztera.darkfortress.GameLogic)
      */
 
-    @Override
-    public void setLogic(Mover l) {
-        this.logic = l;
+   @Override
+    public void setLogic(Mover m) {
+        this.mover = m;
 
-        logic.ennemi(ennemi);
-        vaisseau = new Vaisseau(l);
+        mover.ennemi(ennemi);
+        vaisseau = new Vaisseau(mover);
+        terrain = ((GameMover)mover).getTerrain();
+        ennemi = new Bonus(terrain);
     }
 
     /* (non-Javadoc)
@@ -85,14 +87,15 @@ public class EcDrawer implements Drawer, Runnable {
 
             z.scene(new Scene());
 
-            z.scene().add(terrain);
+            if(mover!=null){ 
+                z.scene().add(terrain);
             z.scene().add(ennemi);
             z.scene().add(vaisseau.getObject());
             z.scene().cameraActive(new Camera(
-                    logic.calcCposition(),
-                    logic.calcDirection()
+                    mover.calcCposition(),
+                    mover.calcDirection()
             ));
-
+            }
             try {
                 z.dessinerSilhouette3D();
             } catch (Exception ex) {
@@ -102,7 +105,7 @@ public class EcDrawer implements Drawer, Runnable {
 
             Graphics g2 = ri.getGraphics();
             g2.setColor(Color.WHITE);
-            g2.drawString("Score : " + logic.score(), 0, ri.getHeight() - 40);
+            g2.drawString("Score : " + mover.score(), 0, ri.getHeight() - 40);
 
             g.drawImage(ri, 0, 0, component.getWidth(), component.getHeight(), null);
 
