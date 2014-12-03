@@ -18,12 +18,11 @@ public class EcDrawer implements Drawer, Runnable {
     private ZBuffer z;
     private int w, h, aw, ah;
     private Vaisseau vaisseau;
-    private Mover mover;
+    private PositionUpdate mover;
 
     public EcDrawer(DarkFortressGUI darkFortress) {
         this.component = darkFortress;
 
- 
         z = ZBufferFactory.instance(100, 100);
 
         new Thread(this).start();
@@ -41,15 +40,14 @@ public class EcDrawer implements Drawer, Runnable {
      * @see be.ibiiztera.darkfortress.Drawer#setLogic(be.ibiiztera.darkfortress.GameLogic)
      */
 
-   @Override
-    public void setLogic(Mover m) {
+    @Override
+    public void setLogic(PositionUpdate m) {
         this.mover = m;
-
-        mover.ennemi(ennemi);
         vaisseau = new Vaisseau(mover);
-        terrain = ((GameMover)mover).getTerrain();
+        terrain = ((PositionUpdateImpl) mover).getTerrain();
         ennemi = new Bonus(terrain);
-    }
+        mover.ennemi(ennemi);
+        }
 
     /* (non-Javadoc)
      * @see be.ibiiztera.darkfortress.Drawer#run()
@@ -67,10 +65,10 @@ public class EcDrawer implements Drawer, Runnable {
                 resize();
             }
             /*try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }*/
+             Thread.sleep(10);
+             } catch (InterruptedException e) {
+             e.printStackTrace();
+             }*/
         }
     }
 
@@ -80,21 +78,21 @@ public class EcDrawer implements Drawer, Runnable {
     public void dessiner() {
         Graphics g = component.getGraphics();
 
-                //z.couleurDeFond(new TColor(Color.BLACK));
+        //z.couleurDeFond(new TColor(Color.BLACK));
         if (g != null && component.getWidth() > 0 && component.getHeight() > 0) {
 
             z.suivante();
 
             z.scene(new Scene());
 
-            if(mover!=null){ 
+            if (mover != null) {
                 z.scene().add(terrain);
-            z.scene().add(ennemi);
-            z.scene().add(vaisseau.getObject());
-            z.scene().cameraActive(new Camera(
-                    mover.calcCposition(),
-                    mover.calcDirection()
-            ));
+                z.scene().add(ennemi);
+                z.scene().add(vaisseau.getObject());
+                z.scene().cameraActive(new Camera(
+                        mover.calcCposition(),
+                        mover.calcDirection()
+                ));
             }
             try {
                 z.dessinerSilhouette3D();

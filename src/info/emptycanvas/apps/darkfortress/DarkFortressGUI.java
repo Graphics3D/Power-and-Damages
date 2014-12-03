@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 @SuppressWarnings("serial")
 public final class DarkFortressGUI extends JFrame implements KeyListener, Runnable {
 
-    private Mover mover;
+    private PositionUpdate mover;
     private Drawer drawer;
     private boolean release_up = true;
     private boolean release_down = true;
@@ -21,7 +21,7 @@ public final class DarkFortressGUI extends JFrame implements KeyListener, Runnab
     public DarkFortressGUI(Class clazz) {
         String Title = "Dark Fortress ";
         
-        mover = new GameMover(new SolPlan());
+        mover = new PositionUpdateImpl(new SolPlan());
         
         this.drawerType = clazz;
         

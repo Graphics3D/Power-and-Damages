@@ -18,9 +18,9 @@ import info.emptycanvas.library.object.Point3D;
  */
 public class DarkfortressMap extends SimpleMap
 {
-    private final Mover mover;
+    private final PositionUpdate mover;
 
-    public DarkfortressMap(Mover m) {
+    public DarkfortressMap(PositionUpdate m) {
         this.mover = m;
     }
 

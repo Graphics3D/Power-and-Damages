@@ -28,7 +28,7 @@ public class JoglDrawer implements Drawer, GLEventListener {
 
     private GLU glu = new GLU();
     private Object component;
-    private Mover mover;
+    private PositionUpdate mover;
     private Terrain terrain;
     private Bonus ennemi;
     private TextRenderer renderer;
@@ -262,12 +262,12 @@ public class JoglDrawer implements Drawer, GLEventListener {
     }
 
     @Override
-    public void setLogic(Mover m) {
+    public void setLogic(PositionUpdate m) {
         this.mover = m;
 
         mover.ennemi(ennemi);
         vaisseau = new Vaisseau(mover);
-        terrain = ((GameMover)mover).getTerrain();
+        terrain = ((PositionUpdateImpl)mover).getTerrain();
         ennemi = new Bonus(terrain);
     }
 

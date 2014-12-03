@@ -21,8 +21,8 @@ import java.awt.Color;
  * @author Manuel Dahmen <ibiiztera.it@gmail.com>
  */
 class Vaisseau {
-    private final Mover gm;
-    public Vaisseau(Mover gm)
+    private final PositionUpdate gm;
+    public Vaisseau(PositionUpdate gm)
     {
         this.gm = gm;
     }

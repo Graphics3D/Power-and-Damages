@@ -17,7 +17,7 @@ import info.emptycanvas.library.object.Point3D;
  *
  * @author Manuel Dahmen <ibiiztera.it@gmail.com>
  */
-public interface Mover {
+public interface PositionUpdate {
 
     public void update();
 

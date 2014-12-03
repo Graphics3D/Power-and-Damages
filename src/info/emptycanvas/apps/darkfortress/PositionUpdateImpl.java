@@ -7,7 +7,7 @@ import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.Representable;
 import info.emptycanvas.library.tribase.TRISphere;
 
-public class GameMover implements Mover{
+public class PositionUpdateImpl implements PositionUpdate{
     private double unitPerMillis = 1.0/10000;
     private double rotationPerMillis = 1.0/10000;
     private Point2D position2D = new Point2D (0.5, 0.5);
@@ -26,7 +26,7 @@ public class GameMover implements Mover{
     private boolean gagne = false;
     private Terrain terrain;
 
-    public GameMover(Terrain t) {
+    public PositionUpdateImpl(Terrain t) {
         this.terrain = t;
          ennemi = new Bonus(terrain);
     }
