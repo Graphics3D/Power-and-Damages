@@ -52,31 +52,39 @@ public class PanelGraphics extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Parchment", 0, 48)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(51, 0, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText(bundle.getString("PanelGraphics.jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 
+        jLabel2.setForeground(new java.awt.Color(51, 0, 255));
         jLabel2.setLabelFor(jTextFieldNom);
         jLabel2.setText(bundle.getString("PanelGraphics.jLabel2.text")); // NOI18N
         jLabel2.setName("jLabel2"); // NOI18N
 
+        jTextFieldNom.setForeground(new java.awt.Color(51, 0, 255));
         jTextFieldNom.setText(bundle.getString("PanelGraphics.jTextFieldNom.text")); // NOI18N
         jTextFieldNom.setName("jTextFieldNom"); // NOI18N
 
+        jLabel3.setForeground(new java.awt.Color(51, 0, 255));
         jLabel3.setLabelFor(jRadioButtonECGraph);
         jLabel3.setText(bundle.getString("PanelGraphics.jLabel3.text")); // NOI18N
         jLabel3.setName("jLabel3"); // NOI18N
 
         buttonGroupGraphics.add(jRadioButtonECGraph);
+        jRadioButtonECGraph.setForeground(new java.awt.Color(51, 0, 255));
         jRadioButtonECGraph.setSelected(true);
         jRadioButtonECGraph.setText(bundle.getString("PanelGraphics.jRadioButtonECGraph.text")); // NOI18N
         jRadioButtonECGraph.setName("jRadioButtonECGraph"); // NOI18N
 
         buttonGroupGraphics.add(jRadioButtonOGLGraph);
+        jRadioButtonOGLGraph.setForeground(new java.awt.Color(51, 0, 255));
         jRadioButtonOGLGraph.setText(bundle.getString("PanelGraphics.jRadioButtonOGLGraph.text")); // NOI18N
         jRadioButtonOGLGraph.setName("jRadioButtonOGLGraph"); // NOI18N
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(51, 0, 255));
         jButton1.setText(bundle.getString("PanelGraphics.jButton1.text")); // NOI18N
         jButton1.setName("jButton1"); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -85,10 +93,12 @@ public class PanelGraphics extends javax.swing.JDialog {
             }
         });
 
+        jLabel4.setForeground(new java.awt.Color(51, 0, 255));
         jLabel4.setLabelFor(jComboBoxTerrain);
         jLabel4.setText(bundle.getString("PanelGraphics.jLabel4.text")); // NOI18N
         jLabel4.setName("jLabel4"); // NOI18N
 
+        jComboBoxTerrain.setForeground(new java.awt.Color(51, 0, 255));
         jComboBoxTerrain.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Plan", "Sinusoide", "Sinusoide Mouvante", " " }));
         jComboBoxTerrain.setToolTipText(bundle.getString("PanelGraphics.jComboBoxTerrain.toolTipText")); // NOI18N
         jComboBoxTerrain.setName("jComboBoxTerrain"); // NOI18N
@@ -97,13 +107,10 @@ public class PanelGraphics extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(jButton1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
@@ -116,17 +123,20 @@ public class PanelGraphics extends javax.swing.JDialog {
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                                     .add(layout.createSequentialGroup()
-                                        .add(jRadioButtonECGraph, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(jRadioButtonOGLGraph, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .add(jRadioButtonECGraph, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .add(18, 18, 18)
+                                        .add(jRadioButtonOGLGraph, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 154, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                     .add(jComboBoxTerrain, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addContainerGap())))))
+                                .addContainerGap())))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(jButton1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 71, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 76, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(jLabel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
                     .add(jTextFieldNom))
@@ -134,18 +144,17 @@ public class PanelGraphics extends javax.swing.JDialog {
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
                         .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 33, Short.MAX_VALUE))
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jRadioButtonECGraph, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .add(jRadioButtonOGLGraph, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .add(4, 4, 4)))
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jComboBoxTerrain)
-                    .add(jLabel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                    .add(jComboBoxTerrain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                    .add(jLabel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE))
                 .add(18, 18, 18)
-                .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 96, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 107, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();

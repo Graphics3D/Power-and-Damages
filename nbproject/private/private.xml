@@ -2,6 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/Programmation/GitHub/darz/nbproject/build-native.xml</file>
+            <file>file:/D:/Programmation/GitHub/darz/src/info/emptycanvas/apps/darkfortress/JoglDrawer.java</file>
+            <file>file:/D:/Programmation/GitHub/darz/src/info/emptycanvas/apps/darkfortress/Bonus.java</file>
+            <file>file:/D:/Programmation/GitHub/darz/src/info/emptycanvas/apps/darkfortress/Bundle.properties</file>
+            <file>file:/D:/Programmation/GitHub/darz/src/info/emptycanvas/apps/darkfortress/PositionUpdateImpl.java</file>
+            <file>file:/D:/Programmation/GitHub/darz/src/info/emptycanvas/apps/darkfortress/PanelGraphics.java</file>
+            <file>file:/D:/Programmation/GitHub/darz/src/info/emptycanvas/apps/darkfortress/EcDrawer.java</file>
+            <file>file:/D:/Programmation/GitHub/darz/src/info/emptycanvas/apps/darkfortress/PositionUpdate.java</file>
+            <file>file:/D:/Programmation/GitHub/darz/src/info/emptycanvas/apps/darkfortress/DarkFortressGUI.java</file>
+            <file>file:/D:/Programmation/GitHub/darz/src/info/emptycanvas/apps/darkfortress/Vaisseau.java</file>
+        </group>
     </open-files>
 </project-private>

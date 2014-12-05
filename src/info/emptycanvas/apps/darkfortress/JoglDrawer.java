@@ -40,7 +40,6 @@ public class JoglDrawer implements Drawer, GLEventListener {
         GLProfile profile = GLProfile.getDefault();
         GLCapabilities capabilities = new GLCapabilities(profile);
         capabilities.setDoubleBuffered(true);
-		// The canvas is the widget that's drawn in the JFrame
 
         GLCanvas glcanvas = new GLCanvas(capabilities);
 

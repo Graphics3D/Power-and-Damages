@@ -95,7 +95,7 @@ public class PositionUpdateImpl implements PositionUpdate{
             Representable r = it.next();
 
             if (r instanceof TRISphere) {
-                if (Point3D.distance(((TRISphere) r).getCentre(), position) < 0.1) {
+                if (Point3D.distance(((TRISphere) r).getCentre(), position) < 0.01) {
                     int points = 10;
                     //System.out.println("POINTS" + points);
 
@@ -103,10 +103,7 @@ public class PositionUpdateImpl implements PositionUpdate{
 
                     System.out.println(score);
 
-                    if(ennemi.removeBonus(r))
-                        win();
-
-                    break;
+                    ennemi.removeBonus(r);
                 }
             }
 
@@ -131,7 +128,7 @@ public class PositionUpdateImpl implements PositionUpdate{
     @Override
     public boolean estGagnant()
     {
-        return gagne;
+        return ennemi.getListRepresentable().isEmpty();
     }
 
     @Override

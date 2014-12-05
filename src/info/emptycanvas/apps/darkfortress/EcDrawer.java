@@ -25,8 +25,13 @@ public class EcDrawer implements Drawer, Runnable {
 
         z = ZBufferFactory.instance(100, 100);
 
+        darkFortress.setSize(640, 480);
+        
+        darkFortress.pack();
+        
         new Thread(this).start();
-
+        
+        
     }
 
     public void resize() {

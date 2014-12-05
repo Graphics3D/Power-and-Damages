@@ -140,7 +140,8 @@ public final class DarkFortressGUI extends JFrame implements KeyListener, Runnab
         try {
             Terrain t = null ;
             t = (Terrain) sol.newInstance();
-            mover.setTerrain(t);
+            mover = new PositionUpdateImpl(t);
+            drawer.setLogic(mover);
         } catch (InstantiationException ex) {
             Logger.getLogger(DarkFortressGUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
