@@ -9,9 +9,7 @@ import info.emptycanvas.library.object.Representable;
 import info.emptycanvas.library.object.TColor;
 import info.emptycanvas.library.tribase.TRISphere;
 import info.emptycanvas.library.object.RepresentableConteneur;
-import java.util.ResourceBundle;
 
-@SuppressWarnings("serial")
 public class Bonus extends RepresentableConteneur {
 
     Random r = new Random();
@@ -64,4 +62,6 @@ public class Bonus extends RepresentableConteneur {
         }
         return false;
     }
+
+    
 }

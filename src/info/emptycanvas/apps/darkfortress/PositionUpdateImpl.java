@@ -6,10 +6,11 @@ import java.util.Iterator;
 import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.Representable;
 import info.emptycanvas.library.tribase.TRISphere;
+import java.util.ConcurrentModificationException;
 
 public class PositionUpdateImpl implements PositionUpdate{
     private double unitPerMillis = 1.0/10000;
-    private double rotationPerMillis = 1.0/10000;
+    private double rotationPerMillis = 1.0/3000;
     private Point2D position2D = new Point2D (0.5, 0.5);
     private Point2D direction2D= new Point2D (0, 1);
     private final double hauteur = 0.01;
@@ -25,6 +26,7 @@ public class PositionUpdateImpl implements PositionUpdate{
     protected static final int STATE_GAME_IN_PROGRESS = 1;
     private boolean gagne = false;
     private Terrain terrain;
+    private double collision_distance = 0.02;
 
     public PositionUpdateImpl(Terrain t) {
         this.terrain = t;
@@ -89,13 +91,28 @@ public class PositionUpdateImpl implements PositionUpdate{
     public void testCollision() {
         if(ennemi==null)
             return;
-        Iterator<Representable> it = ennemi.iterator();
-
+        Iterator<Representable> it = ennemi.getListRepresentable().iterator();
+        
+        Point3D pos = terrain.calcCposition(position2D.getX(), position2D.getY());
+        
+        
         while (it.hasNext()) {
-            Representable r = it.next();
-
+            boolean catched = false;
+            Representable r = null;
+         /*  while(!catched)
+            {
+            try
+            {*/
+                r = it.next();
+                catched = true;
+            /*}
+            catch(ConcurrentModificationException ex)
+            {
+                System.out.println(ex.getMessage());
+            }
+            }*/
             if (r instanceof TRISphere) {
-                if (Point3D.distance(((TRISphere) r).getCentre(), position) < 0.01) {
+                if (Point3D.distance(((TRISphere) r).getCentre(), pos) < collision_distance) {
                     int points = 10;
                     //System.out.println("POINTS" + points);
 
@@ -103,7 +120,7 @@ public class PositionUpdateImpl implements PositionUpdate{
 
                     System.out.println(score);
 
-                    ennemi.removeBonus(r);
+                    ennemi.getListRepresentable().remove(r);
                 }
             }
 

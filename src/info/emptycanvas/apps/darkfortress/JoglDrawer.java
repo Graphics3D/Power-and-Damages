@@ -23,6 +23,8 @@ import info.emptycanvas.library.object.Cube;
 import info.emptycanvas.library.object.TRIObject;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class JoglDrawer implements Drawer, GLEventListener {
 
@@ -179,7 +181,6 @@ public class JoglDrawer implements Drawer, GLEventListener {
                 .norme1().get(1),
                 del.prodVect(Point3D.Y.prodVect(del))
                 .norme1().get(2));
-
         draw(ennemi, glu, gl);
         draw(terrain, glu, gl);
         draw(vaisseau.getObject(), glu, gl);

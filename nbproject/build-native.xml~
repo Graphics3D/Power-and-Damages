@@ -439,7 +439,7 @@ Portions Copyrighted 2013 Sun Microsystems, Inc.
         </condition>
         <fail message="Error:${line.separator}${missing.Inno.message}${line.separator}${missing.WiX.message}" if="missing.Inno.WiX"/>
         <fail message="Error:${line.separator}${missing.Inno.message}" if="missing.Inno"/>
-        <fail message="Error:${line.separator}${missing.WiX.message}" if="missing.WiX"/>
+<!--        <fail message="Error:${line.separator}${missing.WiX.message}" if="missing.WiX"/>-->
         <fail message="Error:${line.separator}${missing.dpkg.message}" if="missing.dpkg"/>
         <fail message="Error:${line.separator}${missing.rpmbuild.message}" if="missing.rpmbuild"/>
     </target>
