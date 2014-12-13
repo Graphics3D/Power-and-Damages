@@ -8,11 +8,12 @@ import info.emptycanvas.library.object.Representable;
 import info.emptycanvas.library.tribase.TRISphere;
 import java.util.ConcurrentModificationException;
 
-public class PositionUpdateImpl implements PositionUpdate{
-    private double unitPerMillis = 1.0/10000;
-    private double rotationPerMillis = 1.0/3000;
-    private Point2D position2D = new Point2D (0.5, 0.5);
-    private Point2D direction2D= new Point2D (0, 1);
+public class PositionUpdateImpl implements PositionUpdate {
+
+    private double unitPerMillis = 1.0 / 10000;
+    private double rotationPerMillis = 1.0 / 3000;
+    private Point2D position2D = new Point2D(0.5, 0.5);
+    private Point2D direction2D = new Point2D(0, 1);
     private final double hauteur = 0.01;
     protected Point3D positionOrigine = Point3D.O0.plus(hauteur);
     protected Point3D position = positionOrigine;
@@ -30,7 +31,7 @@ public class PositionUpdateImpl implements PositionUpdate{
 
     public PositionUpdateImpl(Terrain t) {
         this.terrain = t;
-         ennemi = new Bonus(terrain);
+        ennemi = new Bonus(terrain);
     }
 
     @Override
@@ -39,13 +40,13 @@ public class PositionUpdateImpl implements PositionUpdate{
 
     @Override
     public void acc(long timeMillis) {
-        
-        position2D = position2D.plus(direction2D.mult(timeMillis*unitPerMillis));
+
+        position2D = position2D.plus(direction2D.mult(timeMillis * unitPerMillis));
     }
 
     @Override
     public void dec(long timeMillis) {
-        position2D = position2D.moins(direction2D.mult(timeMillis*unitPerMillis));
+        position2D = position2D.moins(direction2D.mult(timeMillis * unitPerMillis));
     }
 
     @Override
@@ -70,47 +71,48 @@ public class PositionUpdateImpl implements PositionUpdate{
 
     @Override
     public void rotationGauche(long timeMillis) {
-        angle = angle + Math.PI * 2  * rotationPerMillis*timeMillis;
-        direction2D =
-                new Point2D(
-                directionNorme * Math.sin(angle),
-                directionNorme * Math.cos(angle));
+        angle = angle + Math.PI * 2 * rotationPerMillis * timeMillis;
+        direction2D
+                = new Point2D(
+                        directionNorme * Math.sin(angle),
+                        directionNorme * Math.cos(angle));
     }
 
     @Override
     public void rotationDroite(long timeMillis) {
-        angle = angle - Math.PI * 2 * rotationPerMillis*timeMillis;
-        direction2D =
-                new Point2D(
-                directionNorme * Math.sin(angle),
-                directionNorme * Math.cos(angle));
+        angle = angle - Math.PI * 2 * rotationPerMillis * timeMillis;
+        direction2D
+                = new Point2D(
+                        directionNorme * Math.sin(angle),
+                        directionNorme * Math.cos(angle));
 
     }
 
     @Override
     public void testCollision() {
-        if(ennemi==null)
+
+        if (ennemi == null) {
             return;
+        }
         Iterator<Representable> it = ennemi.getListRepresentable().iterator();
-        
+
         Point3D pos = terrain.calcCposition(position2D.getX(), position2D.getY());
-        
-        
+
         while (it.hasNext()) {
             boolean catched = false;
             Representable r = null;
-         /*  while(!catched)
-            {
-            try
-            {*/
-                r = it.next();
-                catched = true;
+            /*  while(!catched)
+             {
+             try
+             {*/
+            r = it.next();
+            catched = true;
             /*}
-            catch(ConcurrentModificationException ex)
-            {
-                System.out.println(ex.getMessage());
-            }
-            }*/
+             catch(ConcurrentModificationException ex)
+             {
+             System.out.println(ex.getMessage());
+             }
+             }*/
             if (r instanceof TRISphere) {
                 if (Point3D.distance(((TRISphere) r).getCentre(), pos) < collision_distance) {
                     int points = 10;
@@ -120,7 +122,20 @@ public class PositionUpdateImpl implements PositionUpdate{
 
                     System.out.println(score);
 
-                    ennemi.getListRepresentable().remove(r);
+                    boolean removed = false;
+                    while (!removed) {
+                        try {
+                            if (ennemi.getListRepresentable().contains(r)) {
+                                ennemi.getListRepresentable().remove(r);
+                                removed = true;
+                            } else {
+                                removed = true;
+                            }
+
+                        } catch (ConcurrentModificationException ex) {
+
+                        }
+                    }
                 }
             }
 
@@ -141,10 +156,9 @@ public class PositionUpdateImpl implements PositionUpdate{
     private void win() {
         gagne = true;
     }
-    
+
     @Override
-    public boolean estGagnant()
-    {
+    public boolean estGagnant() {
         return ennemi.getListRepresentable().isEmpty();
     }
 
@@ -155,7 +169,7 @@ public class PositionUpdateImpl implements PositionUpdate{
 
     @Override
     public Point3D calcDirection() {
-        return terrain.calcCposition(position2D.getX()+direction2D.getX()*positionIncrement, position2D.getY()+direction2D.getY()*positionIncrement);
+        return terrain.calcCposition(position2D.getX() + direction2D.getX() * positionIncrement, position2D.getY() + direction2D.getY() * positionIncrement);
     }
 
     @Override
@@ -183,5 +197,5 @@ public class PositionUpdateImpl implements PositionUpdate{
     Terrain getTerrain() {
         return terrain;
     }
-    
+
 }

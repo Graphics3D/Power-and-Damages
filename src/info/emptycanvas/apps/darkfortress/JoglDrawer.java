@@ -35,6 +35,7 @@ public class JoglDrawer implements Drawer, GLEventListener {
     private Bonus ennemi;
     private TextRenderer renderer;
     private Vaisseau vaisseau;
+    private boolean locked;
 
     public JoglDrawer(DarkFortressGUI darkFortressGUI) {
         this.component = darkFortressGUI;
@@ -160,6 +161,7 @@ public class JoglDrawer implements Drawer, GLEventListener {
 
     @Override
     public void display(GLAutoDrawable gLDrawable) {
+        setLocked(true);
         final GL2 gl = gLDrawable.getGL().getGL2();
 
         // Change to projection matrix.
@@ -181,6 +183,7 @@ public class JoglDrawer implements Drawer, GLEventListener {
                 .norme1().get(1),
                 del.prodVect(Point3D.Y.prodVect(del))
                 .norme1().get(2));
+        
         draw(ennemi, glu, gl);
         draw(terrain, glu, gl);
         draw(vaisseau.getObject(), glu, gl);
@@ -197,6 +200,7 @@ public class JoglDrawer implements Drawer, GLEventListener {
         if (g == null) {
             throw new NullPointerException("Problem initialising JFrame graphics");
         }
+        setLocked(false);
     }
 
     public void displayChanged(GLAutoDrawable gLDrawable, boolean modeChanged,
@@ -269,6 +273,13 @@ public class JoglDrawer implements Drawer, GLEventListener {
         vaisseau = new Vaisseau(mover);
         terrain = ((PositionUpdateImpl)mover).getTerrain();
         ennemi = new Bonus(terrain);
+    }
+
+    private boolean locked() {
+        return locked;
+    }
+    private void setLocked(boolean l) {
+        locked = l;
     }
 
 }
