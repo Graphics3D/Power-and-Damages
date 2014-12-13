@@ -99,7 +99,7 @@ public class PanelGraphics extends javax.swing.JDialog {
         jLabel4.setName("jLabel4"); // NOI18N
 
         jComboBoxTerrain.setForeground(new java.awt.Color(51, 0, 255));
-        jComboBoxTerrain.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Plan", "Sinusoide", "Sinusoide Mouvante", " " }));
+        jComboBoxTerrain.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Plan", "Sinusoide", "Sinusoide Mouvante", "Sphere" }));
         jComboBoxTerrain.setToolTipText(bundle.getString("PanelGraphics.jComboBoxTerrain.toolTipText")); // NOI18N
         jComboBoxTerrain.setName("jComboBoxTerrain"); // NOI18N
 
@@ -168,6 +168,8 @@ public class PanelGraphics extends javax.swing.JDialog {
             classForSol = SolRelief.class;
         } else if (jComboBoxTerrain.getSelectedIndex() == 2) {
             classForSol = SolReliefMouvant.class;
+        } else if (jComboBoxTerrain.getSelectedIndex() == 3) {
+            classForSol = SolSphere.class;
         }
         DarkFortressGUI df;
         if (jRadioButtonECGraph.isSelected()) {

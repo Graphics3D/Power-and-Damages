@@ -93,9 +93,9 @@ public final class DarkFortressGUI extends JFrame implements KeyListener, Runnab
         }
         mover.testCollision();
 
-        if(mover.estGagnant())
+        /*if(mover.estGagnant())
             gagne();
-
+*/
     }
 
     private void cont(long timeKeyPress) {
@@ -133,9 +133,7 @@ public final class DarkFortressGUI extends JFrame implements KeyListener, Runnab
         
     }
 
-    private void gagne() {
-    }
-
+    
     public void setLevel(Class sol) {
         try {
             Terrain t = null ;
