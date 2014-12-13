@@ -36,7 +36,7 @@ public class JoglDrawer implements Drawer, GLEventListener {
     private TextRenderer renderer;
     private Vaisseau vaisseau;
     private boolean locked;
-
+    Timer timer;    
     public JoglDrawer(DarkFortressGUI darkFortressGUI) {
         this.component = darkFortressGUI;
 
@@ -55,6 +55,9 @@ public class JoglDrawer implements Drawer, GLEventListener {
         if (component instanceof JFrame) {
             ((JFrame) component).add(glcanvas);
         }
+        
+        timer =  new Timer();
+        timer.init();
     }
 
     public void color(GL2 gl, Color c) {
@@ -186,6 +189,30 @@ public class JoglDrawer implements Drawer, GLEventListener {
         
         draw(ennemi, glu, gl);
         draw(terrain, glu, gl);
+        int x = 0; int y = 0;
+        double INCR_AA = 0.005;
+        Plasma.scale= INCR_AA;
+              for (double i = 0; i < 1; i += INCR_AA) {
+                  x=0;
+                  
+            for (double j = 0; j < 1; j += INCR_AA) {
+                Point3D p1 = terrain.ps.calculerPoint3D(j, i);
+                Point3D p2 = terrain.ps.calculerPoint3D(j + INCR_AA, i);
+                Point3D p3 = terrain.ps.calculerPoint3D(j + INCR_AA, i + INCR_AA);
+
+                draw(new TRI(p1, p2, p3, Plasma.color(Plasma.f(x, y, time()))), glu, gl);
+
+                p1 = terrain.ps.calculerPoint3D(j, i);
+                p2 = terrain.ps.calculerPoint3D(j, i + INCR_AA);
+                p3 = terrain.ps.calculerPoint3D(j + INCR_AA, i+ INCR_AA);
+
+                draw(new TRI(p1, p2, p3, Plasma.color(Plasma.f(x, y, time()))), glu, gl);
+                x++;
+            }
+            y++;
+        }
+
+        
         draw(vaisseau.getObject(), glu, gl);
         draw("Score :  " + mover.score(), Color.WHITE, glu, gl);
 
@@ -280,6 +307,10 @@ public class JoglDrawer implements Drawer, GLEventListener {
     }
     private void setLocked(boolean l) {
         locked = l;
+    }
+
+    private double time() {
+        return timer.getTimeEllapsed();
     }
 
 }

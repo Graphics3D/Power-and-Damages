@@ -49,7 +49,7 @@ public class Bonus extends RepresentableConteneur {
     }
     public boolean removeBonus(Representable r2) {
         boolean success = false;
-        while (!success) {
+        while (!success && this.getListRepresentable().contains(r2)) {
             try {
                 super.remove(r2);
                 success = true;

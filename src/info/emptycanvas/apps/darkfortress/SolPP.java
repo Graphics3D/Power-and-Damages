@@ -15,6 +15,7 @@ import info.emptycanvas.library.nurbs.ParametrizedSurface;
 import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.RepresentableConteneur;
 import info.emptycanvas.library.object.SegmentDroite;
+import info.emptycanvas.library.object.TRI;
 import java.awt.Color;
 
 /**
@@ -23,7 +24,7 @@ import java.awt.Color;
  */
 public class SolPP {
 
-    protected double INCR = 0.005;
+    public double INCR = 0.005;
     private ParametrizedSurface sol;
 
     public SolPP() {
@@ -58,4 +59,4 @@ public class SolPP {
         
         return rc;
     }
-}
+  }

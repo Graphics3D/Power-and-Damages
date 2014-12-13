@@ -27,7 +27,7 @@ public class PositionUpdateImpl implements PositionUpdate {
     protected static final int STATE_GAME_IN_PROGRESS = 1;
     private boolean gagne = false;
     private Terrain terrain;
-    private double collision_distance = 0.02;
+    private double collision_distance = 0.1;
 
     public PositionUpdateImpl(Terrain t) {
         this.terrain = t;
@@ -41,12 +41,12 @@ public class PositionUpdateImpl implements PositionUpdate {
     @Override
     public void acc(long timeMillis) {
 
-        position2D = position2D.plus(direction2D.mult(timeMillis * unitPerMillis));
+        position2D = position2D.plus(direction2D.mult(-timeMillis * unitPerMillis));
     }
 
     @Override
     public void dec(long timeMillis) {
-        position2D = position2D.moins(direction2D.mult(timeMillis * unitPerMillis));
+        position2D = position2D.moins(direction2D.mult(-timeMillis * unitPerMillis));
     }
 
     @Override
@@ -71,7 +71,7 @@ public class PositionUpdateImpl implements PositionUpdate {
 
     @Override
     public void rotationGauche(long timeMillis) {
-        angle = angle + Math.PI * 2 * rotationPerMillis * timeMillis;
+        angle = angle - Math.PI * 2 * rotationPerMillis * timeMillis;
         direction2D
                 = new Point2D(
                         directionNorme * Math.sin(angle),
@@ -80,7 +80,7 @@ public class PositionUpdateImpl implements PositionUpdate {
 
     @Override
     public void rotationDroite(long timeMillis) {
-        angle = angle - Math.PI * 2 * rotationPerMillis * timeMillis;
+        angle = angle + Math.PI * 2 * rotationPerMillis * timeMillis;
         direction2D
                 = new Point2D(
                         directionNorme * Math.sin(angle),

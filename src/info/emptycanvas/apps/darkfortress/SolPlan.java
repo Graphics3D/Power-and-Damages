@@ -21,7 +21,9 @@ public class SolPlan extends Terrain {
 
             @Override
             public Point3D calculerVitesse3D(double u, double v) {
-                return new Point3D(0, 0, 1);
+                Point3D pU = calculerPoint3D(u + 0.001, v).moins(calculerPoint3D(u, v));
+                Point3D pV = calculerPoint3D(u, v + 0.001).moins(calculerPoint3D(u, v));
+                return pV.plus(pU).norme1();
             }
         };
         SolPP sol = new SolPP(ps);
