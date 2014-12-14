@@ -25,7 +25,7 @@ public class SolSphere extends Terrain {
 
     private Point3D coord(double u, double v) {
         double a = u * 2 * Math.PI ;//- Math.PI;
-        double b = v * 2 * Math.PI ;
+        double b = v * Math.PI;
         Point3D p = new Point3D(Math.sin(a) * Math.sin(b)
                 * radius, Math.sin(a) * Math.cos(b) * radius,
                 Math.cos(a) * radius);

@@ -114,27 +114,33 @@ public class PositionUpdateImpl implements PositionUpdate, Runnable {
         Point3D pos = calcCposition();
 
         Collection<Representable> listRepresentable = bonus.getListRepresentable();
-        Collection<Representable> toRemove = new ArrayList<>();
 
         try {
             for (Iterator<Representable> it = listRepresentable.iterator(); it.hasNext();) {
-                Representable r = it.next();
-                if (r instanceof TRISphere) {
-                    if (Point3D.distance(((TRISphere) r).getCentre(), pos) < collision_distance) {
-                        bonus.removeBonus(r);
-                        
-                        int points = 10;
-                        
-                        score+=points;
-                        
-                        System.out.println(score);
+                Representable r = null;
+                /*boolean notStarted = true;
+                 boolean error = false;
+                 boolean breaked = false;
+                 while ((notStarted || error ) && !breaked){
+                 */
+                ;
+                if ((r = it.next()) != null && r instanceof TRISphere
+                        && Point3D.distance(((TRISphere) r).getCentre(), pos) < collision_distance) {
+                    bonus.remove(r);
 
-                    }
+                    int points = 10;
+
+                    score += points;
+
+                    System.out.println(score);
+
                 }
             }
-        } catch (ConcurrentModificationException ex) {
-            System.out.print("ERR");
+        } catch (ConcurrentModificationException | java.util.NoSuchElementException ex) {
+            //Logger.getLogger(PositionUpdateImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //breaked = true;
+
     }
 
     @Override

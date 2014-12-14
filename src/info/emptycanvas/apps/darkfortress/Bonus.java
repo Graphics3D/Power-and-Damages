@@ -33,6 +33,12 @@ public class Bonus extends RepresentableConteneur {
                 public Point3D coordPoint3D(int x, int y) {
                     return super.coordPoint3D(x, y).plus(t.calcCposition(u, v));
                 }
+
+                @Override
+                public synchronized Point3D getCentre() {
+                    return super.getCentre().plus(t.calcCposition(u, v));
+                }
+                
             };
             s.texture((ITexture) new TColor(Color.RED));
 
