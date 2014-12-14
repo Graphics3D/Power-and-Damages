@@ -20,10 +20,10 @@ public class Bonus extends RepresentableConteneur {
                 double u;
                 double v;
                 {
-                    this.v = (r.nextFloat() - 0.5);
+                    this.v = (r.nextFloat());
                 }
                 {
-                    this.u = (r.nextFloat() - 0.5);
+                    this.u = (r.nextFloat());
                 }
 
                 @Override

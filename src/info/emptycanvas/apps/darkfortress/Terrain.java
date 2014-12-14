@@ -25,6 +25,12 @@ public abstract class Terrain extends RepresentableConteneur {
         Point3D v2 = ps.calculerPoint3D(u, v+ps.incr2).moins(ps.calculerPoint3D(u, v));
         return v1.prodVect(v2);
     }
+    /***
+     * 
+     * @param u X-coordonnée [0-1] sur la surface
+     * @param v Y-coordonnée [0-1] sur la surface
+     * @return 
+     */
     public Point3D calcCposition(double u, double v) {
         return ps.calculerPoint3D(u, v);
     }

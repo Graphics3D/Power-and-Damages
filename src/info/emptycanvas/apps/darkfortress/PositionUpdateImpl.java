@@ -14,7 +14,7 @@ public class PositionUpdateImpl implements PositionUpdate {
     private double rotationPerMillis = 1.0 / 3000;
     private Point2D position2D = new Point2D(0.5, 0.5);
     private Point2D direction2D = new Point2D(0, 1);
-    private final double hauteur = 0.01;
+    private final double hauteur = 0.006;
     protected Point3D positionOrigine = Point3D.O0.plus(hauteur);
     protected Point3D position = positionOrigine;
     protected double positionIncrement = .01;
@@ -23,7 +23,7 @@ public class PositionUpdateImpl implements PositionUpdate {
     protected Point3D direction = directionOrigine;
     protected double angle = 0.0;
     private int score;
-    private Bonus ennemi;
+    private Bonus bonus;
     protected static final int STATE_GAME_IN_PROGRESS = 1;
     private boolean gagne = false;
     private Terrain terrain;
@@ -31,7 +31,7 @@ public class PositionUpdateImpl implements PositionUpdate {
 
     public PositionUpdateImpl(Terrain t) {
         this.terrain = t;
-        ennemi = new Bonus(terrain);
+        bonus = new Bonus(terrain);
     }
 
     @Override
@@ -91,10 +91,10 @@ public class PositionUpdateImpl implements PositionUpdate {
     @Override
     public void testCollision() {
 
-        if (ennemi == null) {
+        if (bonus == null) {
             return;
         }
-        Iterator<Representable> it = ennemi.getListRepresentable().iterator();
+        Iterator<Representable> it = bonus.getListRepresentable().iterator();
 
         Point3D pos = terrain.calcCposition(position2D.getX(), position2D.getY());
 
@@ -125,8 +125,8 @@ public class PositionUpdateImpl implements PositionUpdate {
                     boolean removed = false;
                     while (!removed) {
                         try {
-                            if (ennemi.getListRepresentable().contains(r)) {
-                                ennemi.getListRepresentable().remove(r);
+                            if (bonus.getListRepresentable().contains(r)) {
+                                bonus.getListRepresentable().remove(r);
                                 removed = true;
                             } else {
                                 removed = true;
@@ -145,7 +145,7 @@ public class PositionUpdateImpl implements PositionUpdate {
 
     @Override
     public void ennemi(Bonus e) {
-        this.ennemi = e;
+        this.bonus = e;
     }
 
     @Override
@@ -159,7 +159,7 @@ public class PositionUpdateImpl implements PositionUpdate {
 
     @Override
     public boolean estGagnant() {
-        return ennemi.getListRepresentable().isEmpty();
+        return bonus.getListRepresentable().isEmpty();
     }
 
     @Override
@@ -182,14 +182,17 @@ public class PositionUpdateImpl implements PositionUpdate {
         this.terrain = t;
     }
 
+    @Override
     public Point3D calculerPositionAuSol(Point2D position2D) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
     public Point3D calculerPositionModule(Point2D position2D) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
     public Point3D calculerDirectionAuSol(Point2D position2D) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

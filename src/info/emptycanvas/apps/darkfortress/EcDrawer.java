@@ -14,7 +14,7 @@ public class EcDrawer implements Drawer, Runnable {
 
     private DarkFortressGUI component;
     private Terrain terrain;
-    private Bonus ennemi;
+    private Bonus bonus;
     private ZBuffer z;
     private int w, h, aw, ah;
     private Vaisseau vaisseau;
@@ -50,8 +50,8 @@ public class EcDrawer implements Drawer, Runnable {
         this.mover = m;
         vaisseau = new Vaisseau(mover);
         terrain = ((PositionUpdateImpl) mover).getTerrain();
-        ennemi = new Bonus(terrain);
-        mover.ennemi(ennemi);
+        bonus = new Bonus(terrain);
+        mover.ennemi(bonus);
         }
 
     /* (non-Javadoc)
@@ -92,7 +92,7 @@ public class EcDrawer implements Drawer, Runnable {
 
             if (mover != null) {
                 z.scene().add(terrain);
-                z.scene().add(ennemi);
+                z.scene().add(bonus);
                 z.scene().add(vaisseau.getObject());
                 z.scene().cameraActive(new Camera(
                         mover.calcCposition(),

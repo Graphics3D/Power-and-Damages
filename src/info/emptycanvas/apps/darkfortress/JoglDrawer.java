@@ -32,7 +32,7 @@ public class JoglDrawer implements Drawer, GLEventListener {
     private Object component;
     private PositionUpdate mover;
     private Terrain terrain;
-    private Bonus ennemi;
+    private Bonus bonus;
     private TextRenderer renderer;
     private Vaisseau vaisseau;
     private boolean locked;
@@ -187,7 +187,7 @@ public class JoglDrawer implements Drawer, GLEventListener {
                 del.prodVect(Point3D.Y.prodVect(del))
                 .norme1().get(2));
         
-        draw(ennemi, glu, gl);
+        draw(bonus, glu, gl);
         draw(terrain, glu, gl);
         int x = 0; int y = 0;
         double INCR_AA = 0.005;
@@ -296,10 +296,10 @@ public class JoglDrawer implements Drawer, GLEventListener {
     public void setLogic(PositionUpdate m) {
         this.mover = m;
 
-        mover.ennemi(ennemi);
+        mover.ennemi(bonus);
         vaisseau = new Vaisseau(mover);
         terrain = ((PositionUpdateImpl)mover).getTerrain();
-        ennemi = new Bonus(terrain);
+        bonus = new Bonus(terrain);
     }
 
     private boolean locked() {
