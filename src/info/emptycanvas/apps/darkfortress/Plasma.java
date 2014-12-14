@@ -17,17 +17,9 @@ public class Plasma {
 
     public static Color color(double f) {
         return new Color(
-                (int)((Math.sin(Math.PI * f / 32)+0.5)*256),
-                (int)((Math.sin(Math.PI * f / 64)+0.5)*256),
-                (int)((Math.sin(Math.PI * f / 128)+0.5)*256));
+                (float)((Math.cos(Math.PI * f + 0.5)+1)/2),
+                (float)((Math.cos(Math.PI * f + 1.0)+1)/2),
+                (float)((Math.cos(Math.PI * f + 1.5)+1)/2)
+        );
     }
-    /*
-     red(i) = 0;
-     green(i) = cos(π * i / 128);
-     blue(i) = sin(π * i / 128);
-
-     red(i) = cos(π * i / 128);
-     green(i) = sin(π * i / 128);
-     blue(i) = 0;
-     */
 }

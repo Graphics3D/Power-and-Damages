@@ -53,11 +53,12 @@ public class JoglDrawer implements Drawer, GLEventListener {
 
         glcanvas.setSize(640, 480);
 
-        if (component instanceof JFrame) {
-            ((JFrame) component).add(glcanvas);
-        }
-
         
+        if(component instanceof JFrame)
+        {
+            ((JFrame) component).add(glcanvas);
+            ((JFrame) component).setSize(640, 480);
+        }
         
         
         timer = new Timer();
@@ -200,7 +201,7 @@ public class JoglDrawer implements Drawer, GLEventListener {
         int x = 0;
         int y = 0;
         double INCR_AA = 0.005;
-        Plasma.scale = INCR_AA;
+        Plasma.scale = 50;
         for (double i = 0; i < 1; i += INCR_AA) {
             x = 0;
 
