@@ -7,8 +7,11 @@ import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.Representable;
 import info.emptycanvas.library.tribase.TRISphere;
 import java.util.ConcurrentModificationException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class PositionUpdateImpl implements PositionUpdate {
+public class PositionUpdateImpl implements PositionUpdate, Runnable {
 
     private double unitPerMillis = 1.0 / 10000;
     private double rotationPerMillis = 1.0 / 3000;
@@ -90,29 +93,20 @@ public class PositionUpdateImpl implements PositionUpdate {
 
     @Override
     public void testCollision() {
-
         if (bonus == null) {
             return;
         }
-        Iterator<Representable> it = bonus.getListRepresentable().iterator();
 
-        Point3D pos = terrain.calcCposition(position2D.getX(), position2D.getY());
+        Point3D pos = calcCposition();
 
-        while (it.hasNext()) {
+        //bonus.waitForLock();
+                
+        List<Representable> listRepresentable = bonus.getListRepresentable();
+        
+        try
+        {
+        for(Representable r : listRepresentable) {
             boolean catched = false;
-            Representable r = null;
-            /*  while(!catched)
-             {
-             try
-             {*/
-            r = it.next();
-            catched = true;
-            /*}
-             catch(ConcurrentModificationException ex)
-             {
-             System.out.println(ex.getMessage());
-             }
-             }*/
             if (r instanceof TRISphere) {
                 if (Point3D.distance(((TRISphere) r).getCentre(), pos) < collision_distance) {
                     int points = 10;
@@ -129,7 +123,7 @@ public class PositionUpdateImpl implements PositionUpdate {
                                 bonus.getListRepresentable().remove(r);
                                 removed = true;
                             } else {
-                                removed = true;
+                                removed = false;
                             }
 
                         } catch (ConcurrentModificationException ex) {
@@ -138,9 +132,10 @@ public class PositionUpdateImpl implements PositionUpdate {
                     }
                 }
             }
-
         }
-
+        } catch (ConcurrentModificationException ex) {
+            
+        }
     }
 
     @Override
@@ -199,6 +194,19 @@ public class PositionUpdateImpl implements PositionUpdate {
 
     Terrain getTerrain() {
         return terrain;
+    }
+
+    @Override
+    public void run() {
+        while(true)
+        {
+            try {
+                Thread.sleep(20);
+                testCollision();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(PositionUpdateImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
 }

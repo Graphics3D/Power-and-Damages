@@ -36,7 +36,8 @@ public class JoglDrawer implements Drawer, GLEventListener {
     private TextRenderer renderer;
     private Vaisseau vaisseau;
     private boolean locked;
-    Timer timer;    
+    Timer timer;
+
     public JoglDrawer(DarkFortressGUI darkFortressGUI) {
         this.component = darkFortressGUI;
 
@@ -55,8 +56,11 @@ public class JoglDrawer implements Drawer, GLEventListener {
         if (component instanceof JFrame) {
             ((JFrame) component).add(glcanvas);
         }
+
         
-        timer =  new Timer();
+        
+        
+        timer = new Timer();
         timer.init();
     }
 
@@ -74,7 +78,7 @@ public class JoglDrawer implements Drawer, GLEventListener {
         gl.glVertex3f((float) segd.getExtremite().get(0), (float) segd
                 .getExtremite().get(1), (float) segd.getExtremite().get(2));
         gl.glEnd();
-		//System.out.print("SD");
+        //System.out.print("SD");
         // System.out.println("L");
     }
     /*
@@ -124,7 +128,7 @@ public class JoglDrawer implements Drawer, GLEventListener {
         }
 
 		//System.out.println(logic.position.toString());
-		//System.out.println(logic.direction.toString());
+        //System.out.println(logic.direction.toString());
     }
 
     public void draw(TRIObject generate, GLU glu, GL2 gl) {
@@ -170,7 +174,7 @@ public class JoglDrawer implements Drawer, GLEventListener {
         // Change to projection matrix.
         gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
 
-                //glu.gluPerspective(60, 1.33, 0.001, 1.0);
+        //glu.gluPerspective(60, 1.33, 0.001, 1.0);
         gl.glLoadIdentity();
 
         Point3D pos = mover.calcCposition();
@@ -186,15 +190,20 @@ public class JoglDrawer implements Drawer, GLEventListener {
                 .norme1().get(1),
                 del.prodVect(Point3D.Y.prodVect(del))
                 .norme1().get(2));
+
         
+        //bonus.waitForLock();
         draw(bonus, glu, gl);
+        //bonus.setLocked(false);
+
         draw(terrain, glu, gl);
-        int x = 0; int y = 0;
+        int x = 0;
+        int y = 0;
         double INCR_AA = 0.005;
-        Plasma.scale= INCR_AA;
-              for (double i = 0; i < 1; i += INCR_AA) {
-                  x=0;
-                  
+        Plasma.scale = INCR_AA;
+        for (double i = 0; i < 1; i += INCR_AA) {
+            x = 0;
+
             for (double j = 0; j < 1; j += INCR_AA) {
                 Point3D p1 = terrain.ps.calculerPoint3D(j, i);
                 Point3D p2 = terrain.ps.calculerPoint3D(j + INCR_AA, i);
@@ -204,7 +213,7 @@ public class JoglDrawer implements Drawer, GLEventListener {
 
                 p1 = terrain.ps.calculerPoint3D(j, i);
                 p2 = terrain.ps.calculerPoint3D(j, i + INCR_AA);
-                p3 = terrain.ps.calculerPoint3D(j + INCR_AA, i+ INCR_AA);
+                p3 = terrain.ps.calculerPoint3D(j + INCR_AA, i + INCR_AA);
 
                 draw(new TRI(p1, p2, p3, Plasma.color(Plasma.f(x, y, time()))), glu, gl);
                 x++;
@@ -212,7 +221,6 @@ public class JoglDrawer implements Drawer, GLEventListener {
             y++;
         }
 
-        
         draw(vaisseau.getObject(), glu, gl);
         draw("Score :  " + mover.score(), Color.WHITE, glu, gl);
 
@@ -298,13 +306,14 @@ public class JoglDrawer implements Drawer, GLEventListener {
 
         mover.ennemi(bonus);
         vaisseau = new Vaisseau(mover);
-        terrain = ((PositionUpdateImpl)mover).getTerrain();
+        terrain = ((PositionUpdateImpl) mover).getTerrain();
         bonus = new Bonus(terrain);
     }
 
     private boolean locked() {
         return locked;
     }
+
     private void setLocked(boolean l) {
         locked = l;
     }

@@ -9,10 +9,13 @@ import info.emptycanvas.library.object.Representable;
 import info.emptycanvas.library.object.TColor;
 import info.emptycanvas.library.tribase.TRISphere;
 import info.emptycanvas.library.object.RepresentableConteneur;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Bonus extends RepresentableConteneur {
 
     Random r = new Random();
+    private boolean locked = false;
 
     public Bonus(Terrain t) {
         for (int i = 0; i < SIZE; i++) {
@@ -63,5 +66,35 @@ public class Bonus extends RepresentableConteneur {
         return false;
     }
 
-    
+    public boolean isLocked()
+    {
+        return locked;
+    }
+    public void setLocked(boolean locked)
+    {
+        this.locked = locked;
+    }
+    public boolean getLock()
+    {
+        if(!locked)
+        {
+            locked = true;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void waitForLock() {
+        while(!getLock())
+        {
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Bonus.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }

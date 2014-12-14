@@ -20,31 +20,32 @@ public final class DarkFortressGUI extends JFrame implements KeyListener, Runnab
 
     public DarkFortressGUI(Class clazz) {
         String Title = "Dark Fortress ";
-        
+
         mover = new PositionUpdateImpl(new SolPlan());
-        
+
+        new Thread(mover).start();
+
         this.drawerType = clazz;
-        
-          Logger.getLogger(DarkFortressGUI.class.getName()).log(Level.INFO, drawerType.getSimpleName());
-        
-        if(drawerType.equals(JoglDrawer.class))
-        {            
+
+        Logger.getLogger(DarkFortressGUI.class.getName()).log(Level.INFO, drawerType.getSimpleName());
+
+        if (drawerType.equals(JoglDrawer.class)) {
             Title += "with OpenGL bindings";
             drawer = new JoglDrawer(this);
-        }
-        else if(drawerType.equals(EcDrawer.class))
-        {            
+            
+            
+            
+            
+        } else if (drawerType.equals(EcDrawer.class)) {
             Title += "with Empty Canvas rendering";
             drawer = new EcDrawer(this);
         }
         setTitle(Title);
-        
+
         drawer.setLogic(mover);
-        
-        
+
         addKeyListener(this);
     }
-
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -94,8 +95,8 @@ public final class DarkFortressGUI extends JFrame implements KeyListener, Runnab
         mover.testCollision();
 
         /*if(mover.estGagnant())
-            gagne();
-*/
+         gagne();
+         */
     }
 
     private void cont(long timeKeyPress) {
@@ -117,26 +118,28 @@ public final class DarkFortressGUI extends JFrame implements KeyListener, Runnab
         }
     }
 
-    public void start() {
-        requestFocus();
-    }
-
     @Override
     public void run() {
-            long timeBefore = System.currentTimeMillis();
-            long timeAfter = timeBefore;
+        long timeBefore = System.currentTimeMillis();
+        long timeAfter = timeBefore;
         while (true) {
+
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(DarkFortressGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             timeBefore = System.currentTimeMillis();
-            cont(timeAfter-timeBefore);
+            cont(timeAfter - timeBefore);
             timeAfter = System.currentTimeMillis();
         }
-        
+
     }
 
-    
     public void setLevel(Class sol) {
         try {
-            Terrain t = null ;
+            Terrain t = null;
             t = (Terrain) sol.newInstance();
             mover = new PositionUpdateImpl(t);
             drawer.setLogic(mover);
