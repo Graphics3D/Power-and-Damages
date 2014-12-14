@@ -15,11 +15,11 @@ public class Plasma {
 
     }
 
-    public static Color color(double f) {
+    public static Color color(double x, double y, double t) {
         return new Color(
-                (float)((Math.cos(Math.PI * f + 0.5)+1)/2),
-                (float)((Math.cos(Math.PI * f + 1.0)+1)/2),
-                (float)((Math.cos(Math.PI * f + 1.5)+1)/2)
+                (float)((Math.cos(Math.PI * f(x,y,t) + 0.5 + t)+1)/2),
+                (float)((Math.cos(Math.PI * f(x,y,t) + 1.0 + t)+1)/2),
+                (float)((Math.cos(Math.PI * f(x,y,t) + 1.5 + t)+1)/2)
         );
     }
 }

@@ -65,36 +65,36 @@ public class Bonus extends RepresentableConteneur {
         }
         return false;
     }
-
-    public boolean isLocked()
-    {
-        return locked;
-    }
-    public void setLocked(boolean locked)
-    {
-        this.locked = locked;
-    }
-    public boolean getLock()
-    {
-        if(!locked)
-        {
-            locked = true;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    public void waitForLock() {
-        while(!getLock())
-        {
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Bonus.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
+//
+//    public boolean isLocked()
+//    {
+//        return locked;
+//    }
+//    public void setLocked(boolean locked)
+//    {
+//        this.locked = locked;
+//    }
+//    public boolean getLock()
+//    {
+//        if(!locked)
+//        {
+//            locked = true;
+//            return true;
+//        }
+//        else
+//        {
+//            return false;
+//        }
+//    }
+//
+//    public void waitForLock() {
+//        while(!getLock())
+//        {
+//            try {
+//                Thread.sleep(50);
+//            } catch (InterruptedException ex) {
+//                Logger.getLogger(Bonus.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//    }
 }

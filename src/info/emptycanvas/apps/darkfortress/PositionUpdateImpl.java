@@ -7,6 +7,7 @@ import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.Representable;
 import info.emptycanvas.library.tribase.TRISphere;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.logging.Level;
@@ -31,7 +32,7 @@ public class PositionUpdateImpl implements PositionUpdate, Runnable {
     protected static final int STATE_GAME_IN_PROGRESS = 1;
     private boolean gagne = false;
     private Terrain terrain;
-    private double collision_distance = 0.1;
+    private double collision_distance = 0.05;
 
     public PositionUpdateImpl(Terrain t) {
         this.terrain = t;
@@ -105,50 +106,35 @@ public class PositionUpdateImpl implements PositionUpdate, Runnable {
     }
 
     @Override
-    public void testCollision() {
+    public synchronized void testCollision() {
         if (bonus == null) {
             return;
         }
 
         Point3D pos = calcCposition();
 
-        //bonus.waitForLock();
-        List<Representable> listRepresentable = bonus.getListRepresentable();
-        List<Representable> toRemove = new ArrayList<Representable>();
+        Collection<Representable> listRepresentable = bonus.getListRepresentable();
+        Collection<Representable> toRemove = new ArrayList<>();
 
         try {
             for (Iterator<Representable> it = listRepresentable.iterator(); it.hasNext();) {
                 Representable r = it.next();
-                boolean catched = false;
                 if (r instanceof TRISphere) {
                     if (Point3D.distance(((TRISphere) r).getCentre(), pos) < collision_distance) {
+                        bonus.removeBonus(r);
+                        
                         int points = 10;
-                        //System.out.println("POINTS" + points);
-
+                        
+                        score+=points;
+                        
                         System.out.println(score);
 
-                        boolean removed = false;
-                        while (!removed) {
-                            try {
-                                if (bonus.getListRepresentable().contains(r)) {
-                                    toRemove.add(r);
-                                    score += points;
-                                    removed = true;
-                                } else {
-                                    removed = true;
-                                }
-
-                            } catch (ConcurrentModificationException ex) {
-                                removed = true;
-                            }
-                        }
                     }
                 }
             }
         } catch (ConcurrentModificationException ex) {
-
+            System.out.print("ERR");
         }
-        listRepresentable.removeAll(toRemove);
     }
 
     @Override

@@ -23,8 +23,7 @@ public final class DarkFortressGUI extends JFrame implements KeyListener, Runnab
 
         mover = new PositionUpdateImpl(new SolPlan());
 
-        new Thread(mover).start();
-
+        //new Thread(mover).start();
         this.drawerType = clazz;
 
         Logger.getLogger(DarkFortressGUI.class.getName()).log(Level.INFO, drawerType.getSimpleName());
@@ -32,10 +31,7 @@ public final class DarkFortressGUI extends JFrame implements KeyListener, Runnab
         if (drawerType.equals(JoglDrawer.class)) {
             Title += "with OpenGL bindings";
             drawer = new JoglDrawer(this);
-            
-            
-            
-            
+
         } else if (drawerType.equals(EcDrawer.class)) {
             Title += "with Empty Canvas rendering";
             drawer = new EcDrawer(this);
@@ -70,7 +66,6 @@ public final class DarkFortressGUI extends JFrame implements KeyListener, Runnab
                 && mover.state() == mover.STATE_GAME_IN_PROGRESS()) {
             release_right = false;
         }
-        mover.testCollision();
     }
 
     @Override
@@ -92,11 +87,6 @@ public final class DarkFortressGUI extends JFrame implements KeyListener, Runnab
                 && mover.state() == mover.STATE_GAME_IN_PROGRESS()) {
             release_right = true;
         }
-        mover.testCollision();
-
-        /*if(mover.estGagnant())
-         gagne();
-         */
     }
 
     private void cont(long timeKeyPress) {
@@ -126,6 +116,7 @@ public final class DarkFortressGUI extends JFrame implements KeyListener, Runnab
 
             try {
                 Thread.sleep(50);
+                mover.testCollision();
             } catch (InterruptedException ex) {
                 Logger.getLogger(DarkFortressGUI.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -139,13 +130,11 @@ public final class DarkFortressGUI extends JFrame implements KeyListener, Runnab
 
     public void setLevel(Class sol) {
         try {
-            Terrain t = null;
+            Terrain t;
             t = (Terrain) sol.newInstance();
             mover = new PositionUpdateImpl(t);
             drawer.setLogic(mover);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(DarkFortressGUI.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        } catch (InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(DarkFortressGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
 

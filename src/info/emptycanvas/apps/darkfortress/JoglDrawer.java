@@ -210,13 +210,13 @@ public class JoglDrawer implements Drawer, GLEventListener {
                 Point3D p2 = terrain.ps.calculerPoint3D(j + INCR_AA, i);
                 Point3D p3 = terrain.ps.calculerPoint3D(j + INCR_AA, i + INCR_AA);
 
-                draw(new TRI(p1, p2, p3, Plasma.color(Plasma.f(x, y, time()))), glu, gl);
+                draw(new TRI(p1, p2, p3, Plasma.color(x, y, time())), glu, gl);
 
                 p1 = terrain.ps.calculerPoint3D(j, i);
                 p2 = terrain.ps.calculerPoint3D(j, i + INCR_AA);
                 p3 = terrain.ps.calculerPoint3D(j + INCR_AA, i + INCR_AA);
 
-                draw(new TRI(p1, p2, p3, Plasma.color(Plasma.f(x, y, time()))), glu, gl);
+                draw(new TRI(p1, p2, p3, Plasma.color(x, y, time())), glu, gl);
                 x++;
             }
             y++;
