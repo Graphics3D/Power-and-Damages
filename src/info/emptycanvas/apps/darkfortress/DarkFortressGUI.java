@@ -113,14 +113,7 @@ public final class DarkFortressGUI extends JFrame implements KeyListener, Runnab
         long timeBefore = System.currentTimeMillis();
         long timeAfter = timeBefore;
         while (true) {
-
-            try {
-                Thread.sleep(50);
-                mover.testCollision();
-            } catch (InterruptedException ex) {
-                Logger.getLogger(DarkFortressGUI.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
+            mover.testCollision();
             timeBefore = System.currentTimeMillis();
             cont(timeAfter - timeBefore);
             timeAfter = System.currentTimeMillis();
