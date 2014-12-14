@@ -37,8 +37,6 @@ public final class DarkFortressGUI extends JFrame implements KeyListener, Runnab
             drawer = new EcDrawer(this);
         }
 
-        drawer.init(this);
-        
         setTitle(Title);
 
         drawer.setLogic(mover);

@@ -39,15 +39,21 @@ public class JoglDrawer extends Drawer implements GLEventListener {
     private Vaisseau vaisseau;
     private boolean locked;
     Timer timer;
+    private final GLCanvas glcanvas;
 
     public JoglDrawer(DarkFortressGUI darkFortressGUI) {
         this.component = darkFortressGUI;
 
+        GLProfile.initSingleton();
+        
         GLProfile profile = GLProfile.getDefault();
+        
+        
+        
         GLCapabilities capabilities = new GLCapabilities(profile);
         capabilities.setDoubleBuffered(true);
 
-        GLCanvas glcanvas = new GLCanvas(capabilities);
+        glcanvas = new GLCanvas(capabilities);
 
         glcanvas.addGLEventListener(this);
 
@@ -55,8 +61,9 @@ public class JoglDrawer extends Drawer implements GLEventListener {
 
         glcanvas.setSize(640, 480);
 
-        ((JFrame)component).add(glcanvas);
-
+        initFrame((JFrame) component);
+      
+        ((JFrame) component).add(glcanvas);
          
         timer = new Timer();
         timer.init();

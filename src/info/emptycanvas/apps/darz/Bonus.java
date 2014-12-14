@@ -52,7 +52,7 @@ public class Bonus extends RepresentableConteneur {
     }
     private static int SIZE;
     {
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("info/emptycanvas/apps/darkfortress/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("info/emptycanvas/apps/darz/Bundle"); // NOI18N
         SIZE = Integer.parseInt(bundle.getString("Bonus_Size"));
         
     }

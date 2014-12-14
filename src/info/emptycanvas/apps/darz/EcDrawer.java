@@ -36,6 +36,7 @@ public class EcDrawer extends Drawer implements Runnable {
         
         new Thread(this).start();
         
+        initFrame(component);
 
     }
 
