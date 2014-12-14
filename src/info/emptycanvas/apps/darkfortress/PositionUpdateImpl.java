@@ -6,6 +6,7 @@ import java.util.Iterator;
 import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.Representable;
 import info.emptycanvas.library.tribase.TRISphere;
+import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.logging.Level;
@@ -14,7 +15,7 @@ import java.util.logging.Logger;
 public class PositionUpdateImpl implements PositionUpdate, Runnable {
 
     private double unitPerMillis = 1.0 / 10000;
-    private double rotationPerMillis = 1.0 / 3000;
+    private double rotationPerMillis = 1.0 / 10000;
     private Point2D position2D = new Point2D(0.5, 0.5);
     private Point2D direction2D = new Point2D(0, 1);
     private final double hauteur = 0.006;
@@ -41,15 +42,27 @@ public class PositionUpdateImpl implements PositionUpdate, Runnable {
     public void update() {
     }
 
+    protected boolean isPositionOk(Point2D p) {
+        if (p.getX() >= 0 && p.getX() <= 1 && p.getY() >= 0 && p.getY() <= 1) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public void acc(long timeMillis) {
-
-        position2D = position2D.plus(direction2D.mult(-timeMillis * unitPerMillis));
+        Point2D p2 = position2D.plus(direction2D.mult(-timeMillis * unitPerMillis));
+        if (isPositionOk(p2)) {
+            position2D = p2;
+        }
     }
 
     @Override
     public void dec(long timeMillis) {
-        position2D = position2D.moins(direction2D.mult(-timeMillis * unitPerMillis));
+        Point2D p2 = position2D.moins(direction2D.mult(-timeMillis * unitPerMillis));
+        if (isPositionOk(p2)) {
+            position2D = p2;
+        }
     }
 
     @Override
@@ -100,42 +113,42 @@ public class PositionUpdateImpl implements PositionUpdate, Runnable {
         Point3D pos = calcCposition();
 
         //bonus.waitForLock();
-                
         List<Representable> listRepresentable = bonus.getListRepresentable();
-        
-        try
-        {
-        for(Representable r : listRepresentable) {
-            boolean catched = false;
-            if (r instanceof TRISphere) {
-                if (Point3D.distance(((TRISphere) r).getCentre(), pos) < collision_distance) {
-                    int points = 10;
-                    //System.out.println("POINTS" + points);
+        List<Representable> toRemove = new ArrayList<Representable>();
 
-                    score += points;
+        try {
+            for (Iterator<Representable> it = listRepresentable.iterator(); it.hasNext();) {
+                Representable r = it.next();
+                boolean catched = false;
+                if (r instanceof TRISphere) {
+                    if (Point3D.distance(((TRISphere) r).getCentre(), pos) < collision_distance) {
+                        int points = 10;
+                        //System.out.println("POINTS" + points);
 
-                    System.out.println(score);
+                        System.out.println(score);
 
-                    boolean removed = false;
-                    while (!removed) {
-                        try {
-                            if (bonus.getListRepresentable().contains(r)) {
-                                bonus.getListRepresentable().remove(r);
+                        boolean removed = false;
+                        while (!removed) {
+                            try {
+                                if (bonus.getListRepresentable().contains(r)) {
+                                    toRemove.add(r);
+                                    score += points;
+                                    removed = true;
+                                } else {
+                                    removed = true;
+                                }
+
+                            } catch (ConcurrentModificationException ex) {
                                 removed = true;
-                            } else {
-                                removed = false;
                             }
-
-                        } catch (ConcurrentModificationException ex) {
-
                         }
                     }
                 }
             }
-        }
         } catch (ConcurrentModificationException ex) {
-            
+
         }
+        listRepresentable.removeAll(toRemove);
     }
 
     @Override
@@ -198,8 +211,7 @@ public class PositionUpdateImpl implements PositionUpdate, Runnable {
 
     @Override
     public void run() {
-        while(true)
-        {
+        while (true) {
             try {
                 Thread.sleep(20);
                 testCollision();

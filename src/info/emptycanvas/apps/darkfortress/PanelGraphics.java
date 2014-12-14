@@ -74,12 +74,12 @@ public class PanelGraphics extends javax.swing.JDialog {
 
         buttonGroupGraphics.add(jRadioButtonECGraph);
         jRadioButtonECGraph.setForeground(new java.awt.Color(51, 0, 255));
-        jRadioButtonECGraph.setSelected(true);
         jRadioButtonECGraph.setText(bundle.getString("PanelGraphics.jRadioButtonECGraph.text")); // NOI18N
         jRadioButtonECGraph.setName("jRadioButtonECGraph"); // NOI18N
 
         buttonGroupGraphics.add(jRadioButtonOGLGraph);
         jRadioButtonOGLGraph.setForeground(new java.awt.Color(51, 0, 255));
+        jRadioButtonOGLGraph.setSelected(true);
         jRadioButtonOGLGraph.setText(bundle.getString("PanelGraphics.jRadioButtonOGLGraph.text")); // NOI18N
         jRadioButtonOGLGraph.setName("jRadioButtonOGLGraph"); // NOI18N
 
