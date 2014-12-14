@@ -13,15 +13,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Bonus extends RepresentableConteneur {
-
-    Random r = new Random();
-    private boolean locked = false;
-
-    public Bonus(Terrain t) {
-        for (int i = 0; i < SIZE; i++) {
-            TRISphere s = new TRISphere(Point3D.O0, 0.01) {
+    private final Terrain terrain;
+    class TRISphere2 extends TRISphere
+    {
                 double u;
                 double v;
+
+        public TRISphere2(Point3D c, double r) {
+            super(c, r);
+        }
+                
+                
                 {
                     this.v = (r.nextFloat());
                 }
@@ -31,15 +33,24 @@ public class Bonus extends RepresentableConteneur {
 
                 @Override
                 public Point3D coordPoint3D(int x, int y) {
-                    return super.coordPoint3D(x, y).plus(t.calcCposition(u, v));
+                    return super.coordPoint3D(x, y).plus(terrain.calcCposition(u, v));
                 }
 
                 @Override
                 public synchronized Point3D getCentre() {
-                    return super.getCentre().plus(t.calcCposition(u, v));
+                    return super.getCentre().plus(terrain.calcCposition(u, v));
                 }
                 
-            };
+            }
+    
+    Random r = new Random();
+    private boolean locked = false;
+
+    public Bonus(Terrain t) {
+        this.terrain  =t;
+        
+        for (int i = 0; i < SIZE; i++) {
+            TRISphere2 s = new TRISphere2(Point3D.O0, 0.01) ;
             s.texture((ITexture) new TColor(Color.RED));
 
             s.setMaxX(4);

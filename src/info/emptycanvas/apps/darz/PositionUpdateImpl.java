@@ -1,5 +1,6 @@
 package info.emptycanvas.apps.darz;
 
+import info.emptycanvas.apps.darz.Bonus.TRISphere2;
 import info.emptycanvas.library.object.Point2D;
 import java.util.Iterator;
 
@@ -124,8 +125,8 @@ public class PositionUpdateImpl implements PositionUpdate, Runnable {
                  while ((notStarted || error ) && !breaked){
                  */
                 ;
-                if ((r = it.next()) != null && r instanceof TRISphere
-                        && Point3D.distance(((TRISphere) r).getCentre(), pos) < collision_distance) {
+                if ((r = it.next()) != null && r instanceof TRISphere2
+                        && Point3D.distance(((TRISphere2) r).getCentre(), pos) < collision_distance) {
                     bonus.remove(r);
 
                     int points = 10;
