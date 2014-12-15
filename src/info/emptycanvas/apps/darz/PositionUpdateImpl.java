@@ -116,14 +116,13 @@ public class PositionUpdateImpl implements PositionUpdate, Runnable {
 
         Point3D pos = terrain.calcCposition(position2D.getX(), position2D.getY());
 
-        Collection<Representable> listRepresentable = bonus.getListRepresentable();
-
         try {
-            for (Iterator<Representable> it = listRepresentable.iterator(); it.hasNext();) {
-                Representable r;
-                if ((r = it.next()) != null && r instanceof TRISphere2
-                        && Point3D.distance(((TRISphere2) r).getCentre(), pos) < collision_distance) {
-                    bonus.remove(r);
+            for (Iterator<Representable> it = bonus.getListRepresentable().iterator(); 
+                    it.hasNext();) {
+                Representable bon;
+                if ((bon = it.next()) != null && bon instanceof TRISphere2
+                        && Point3D.distance(((TRISphere2) bon).getCentre(), pos) < collision_distance) {
+                    bonus.remove(bon);
 
                     int points = 10;
 
@@ -134,10 +133,7 @@ public class PositionUpdateImpl implements PositionUpdate, Runnable {
                 }
             }
         } catch (ConcurrentModificationException | java.util.NoSuchElementException ex) {
-            //Logger.getLogger(PositionUpdateImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //breaked = true;
-
     }
 
     @Override

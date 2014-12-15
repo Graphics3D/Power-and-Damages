@@ -5,11 +5,14 @@ import java.awt.Color;
 
 public class Plasma {
     public static double scale;
+    public static double t_factor = 0.001;
     public static double f(double x, double y, double t) {
         return Math.sin(
                 new Point2D(x, y).
                 distance(
-                        new Point2D((128 * Math.sin(-t) + 128), (128 * Math.cos(-t) + 128))
+                        new Point2D(
+                                (Math.sin(-t*t_factor)), 
+                                (Math.cos(-t*t_factor)))
                 ) / scale
         );
 
