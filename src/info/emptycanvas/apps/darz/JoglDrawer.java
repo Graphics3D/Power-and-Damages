@@ -21,6 +21,7 @@ import info.emptycanvas.library.object.RepresentableConteneur;
 import com.jogamp.opengl.util.awt.TextRenderer;
 import info.emptycanvas.library.object.Cube;
 import info.emptycanvas.library.object.TRIObject;
+import info.emptycanvas.library.tribase.TRIObjetGenerateurAbstract;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.IOException;
@@ -45,11 +46,9 @@ public class JoglDrawer extends Drawer implements GLEventListener {
         this.component = darkFortressGUI;
 
         GLProfile.initSingleton();
-        
+
         GLProfile profile = GLProfile.getDefault();
-        
-        
-        
+
         GLCapabilities capabilities = new GLCapabilities(profile);
         capabilities.setDoubleBuffered(true);
 
@@ -62,9 +61,9 @@ public class JoglDrawer extends Drawer implements GLEventListener {
         glcanvas.setSize(640, 480);
 
         initFrame((JFrame) component);
-      
+
         ((JFrame) component).add(glcanvas);
-         
+
         timer = new Timer();
         timer.init();
     }
@@ -106,6 +105,20 @@ public class JoglDrawer extends Drawer implements GLEventListener {
         // System.out.println("T");
     }
 
+    public void draw(TRIObjetGenerateur s, GLU glu, GL2 gl) {
+        for (int i = 0; i < s.getMaxX(); i++) {
+            for (int j = 0; j < s.getMaxY(); j++) {
+                TRI[] tris = new TRI[2];
+                Point3D INFINI = new Point3D(0, 0, 100000);
+                tris[0] = new TRI(INFINI, INFINI, INFINI);
+                tris[1] = new TRI(INFINI, INFINI, INFINI);
+                s.getTris(i, j, tris);
+                draw(tris[0], glu, gl);
+                draw(tris[1], glu, gl);
+            }
+        }
+    }
+
     public void draw(RepresentableConteneur rc, GLU glu, GL2 gl) {
         Iterator<Representable> it = rc.iterator();
         while (it.hasNext()) {
@@ -117,23 +130,10 @@ public class JoglDrawer extends Drawer implements GLEventListener {
                 draw((SegmentDroite) r, glu, gl);
             } else if (r instanceof TRIObjetGenerateur) {
                 TRIObjetGenerateur s = (TRIObjetGenerateur) r;
-                for (int i = 0; i < s.getMaxX(); i++) {
-                    for (int j = 0; j < s.getMaxY(); j++) {
-                        TRI[] tris = new TRI[2];
-                        Point3D INFINI = new Point3D(0, 0, 100000);
-                        tris[0] = new TRI(INFINI, INFINI, INFINI);
-                        tris[1] = new TRI(INFINI, INFINI, INFINI);
-                        s.getTris(i, j, tris);
-                        draw(tris[0], glu, gl);
-                        draw(tris[1], glu, gl);
-                    }
-                }
+                draw(s, glu, gl);
             }
 
         }
-
-		//System.out.println(logic.position.toString());
-        //System.out.println(logic.direction.toString());
     }
 
     public void draw(TRIObject generate, GLU glu, GL2 gl) {
@@ -173,7 +173,6 @@ public class JoglDrawer extends Drawer implements GLEventListener {
 
     @Override
     public void display(GLAutoDrawable gLDrawable) {
-        setLocked(true);
         final GL2 gl = gLDrawable.getGL().getGL2();
 
         // Change to projection matrix.
@@ -196,11 +195,8 @@ public class JoglDrawer extends Drawer implements GLEventListener {
                 del.prodVect(Point3D.Y.prodVect(del))
                 .norme1().get(2));
 
-        
-        //bonus.waitForLock();
         draw(bonus, glu, gl);
-        //bonus.setLocked(false);
-
+        draw(new Ciel().getBleu(), glu, gl);
         draw(terrain, glu, gl);
         int x = 0;
         int y = 0;
@@ -240,7 +236,6 @@ public class JoglDrawer extends Drawer implements GLEventListener {
         if (g == null) {
             throw new NullPointerException("Problem initialising JFrame graphics");
         }
-        setLocked(false);
     }
 
     public void displayChanged(GLAutoDrawable gLDrawable, boolean modeChanged,
@@ -326,6 +321,5 @@ public class JoglDrawer extends Drawer implements GLEventListener {
     private double time() {
         return timer.getTimeEllapsed();
     }
-
 
 }

@@ -34,10 +34,12 @@ public class PositionUpdateImpl implements PositionUpdate, Runnable {
     private boolean gagne = false;
     private Terrain terrain;
     private double collision_distance = 0.05;
+    private final Ciel bleu;
 
     public PositionUpdateImpl(Terrain t) {
         this.terrain = t;
         bonus = new Bonus(terrain);
+        bleu = new Ciel();
     }
 
     @Override
@@ -112,19 +114,13 @@ public class PositionUpdateImpl implements PositionUpdate, Runnable {
             return;
         }
 
-        Point3D pos = calcCposition();
+        Point3D pos = terrain.calcCposition(position2D.getX(), position2D.getY());
 
         Collection<Representable> listRepresentable = bonus.getListRepresentable();
 
         try {
             for (Iterator<Representable> it = listRepresentable.iterator(); it.hasNext();) {
-                Representable r = null;
-                /*boolean notStarted = true;
-                 boolean error = false;
-                 boolean breaked = false;
-                 while ((notStarted || error ) && !breaked){
-                 */
-                ;
+                Representable r;
                 if ((r = it.next()) != null && r instanceof TRISphere2
                         && Point3D.distance(((TRISphere2) r).getCentre(), pos) < collision_distance) {
                     bonus.remove(r);
