@@ -13,44 +13,53 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Bonus extends RepresentableConteneur {
+
     private final Terrain terrain;
-    class TRISphere2 extends TRISphere
-    {
-                double u;
-                double v;
+    private static final int SIZE;
+
+    static {
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("info/emptycanvas/apps/darz/Bundle"); // NOI18N
+        SIZE = Integer.parseInt(bundle.getString("Bonus_Size"));
+
+    }
+
+    class TRISphere2 extends TRISphere {
+
+        double u;
+        double v;
 
         public TRISphere2(Point3D c, double r) {
             super(c, r);
         }
-                
-                
-                {
-                    this.v = (r.nextFloat());
-                }
-                {
-                    this.u = (r.nextFloat());
-                }
 
-                @Override
-                public Point3D coordPoint3D(int x, int y) {
-                    return super.coordPoint3D(x, y).plus(terrain.calcCposition(u, v));
-                }
+        {
+            this.v = (r.nextFloat());
+        }
 
-                @Override
-                public synchronized Point3D getCentre() {
-                    return super.getCentre().plus(terrain.calcCposition(u, v));
-                }
-                
-            }
-    
+        {
+            this.u = (r.nextFloat());
+        }
+
+        @Override
+        public Point3D coordPoint3D(int x, int y) {
+            return super.coordPoint3D(x, y).plus(terrain.calcCposition(u, v));
+        }
+
+        @Override
+        public synchronized Point3D getCentre() {
+            return super.getCentre().plus(terrain.calcCposition(u, v));
+        }
+
+    }
+
     Random r = new Random();
     private boolean locked = false;
 
     public Bonus(Terrain t) {
-        this.terrain  =t;
-        
+        this.terrain = t;
+
         for (int i = 0; i < SIZE; i++) {
-            TRISphere2 s = new TRISphere2(Point3D.O0, 0.01) ;
+            TRISphere2 s = new TRISphere2(Point3D.O0, 0.01);
             s.texture((ITexture) new TColor(Color.RED));
 
             s.setMaxX(4);
@@ -61,12 +70,7 @@ public class Bonus extends RepresentableConteneur {
 
         }
     }
-    private static int SIZE;
-    {
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("info/emptycanvas/apps/darz/Bundle"); // NOI18N
-        SIZE = Integer.parseInt(bundle.getString("Bonus_Size"));
-        
-    }
+
     public boolean removeBonus(Representable r2) {
         boolean success = false;
         while (!success && this.getListRepresentable().contains(r2)) {
