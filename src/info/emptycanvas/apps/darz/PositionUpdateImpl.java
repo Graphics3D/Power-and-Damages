@@ -1,18 +1,25 @@
 package info.emptycanvas.apps.darz;
 
 import info.emptycanvas.apps.darz.Bonus.TRISphere2;
+import info.emptycanvas.library.object.ColorTexture;
+import info.emptycanvas.library.object.ECBufferedImage;
+import info.emptycanvas.library.object.ITexture;
+import info.emptycanvas.library.object.ImageTexture;
 import info.emptycanvas.library.object.Point2D;
 import java.util.Iterator;
 
 import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.Representable;
 import info.emptycanvas.library.tribase.TRISphere;
+import java.awt.Image;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 public class PositionUpdateImpl implements PositionUpdate, Runnable {
 
@@ -122,6 +129,14 @@ public class PositionUpdateImpl implements PositionUpdate, Runnable {
                 Representable bon;
                 if ((bon = it.next()) != null && bon instanceof TRISphere2
                         && Point3D.distance(((TRISphere2) bon).getCentre(), pos) < collision_distance) {
+                    
+                    ImageTexture imageTexture;
+                    imageTexture = new ImageTexture(new ECBufferedImage(ImageIO.read(getClass().getResourceAsStream("skullhead.png"))));
+                    
+                    ((TRISphere2)bon).texture(imageTexture);
+                    
+                   
+                    
                     bonus.remove(bon);
 
                     int points = 10;
@@ -133,6 +148,8 @@ public class PositionUpdateImpl implements PositionUpdate, Runnable {
                 }
             }
         } catch (ConcurrentModificationException | java.util.NoSuchElementException ex) {
+        } catch (IOException ex) {
+            Logger.getLogger(PositionUpdateImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
