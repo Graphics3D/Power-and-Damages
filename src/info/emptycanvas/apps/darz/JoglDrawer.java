@@ -304,11 +304,11 @@ public class JoglDrawer extends Drawer implements GLEventListener {
     public void setLogic(PositionUpdate m) {
         this.mover = m;
 
-        mover.ennemi(bonus);
         vaisseau = new Vaisseau(mover);
         terrain = ((PositionUpdateImpl) mover).getTerrain();
         bonus = new Bonus(terrain);
-    }
+        mover.ennemi(bonus);
+       }
 
     private boolean locked() {
         return locked;
