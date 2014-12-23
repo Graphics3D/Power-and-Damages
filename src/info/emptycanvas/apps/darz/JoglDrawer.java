@@ -173,6 +173,9 @@ public class JoglDrawer extends Drawer implements GLEventListener {
 
     @Override
     public void display(GLAutoDrawable gLDrawable) {
+        mover.testCollision();
+        
+        
         final GL2 gl = gLDrawable.getGL().getGL2();
 
         // Change to projection matrix.
@@ -304,10 +307,10 @@ public class JoglDrawer extends Drawer implements GLEventListener {
     public void setLogic(PositionUpdate m) {
         this.mover = m;
 
-        mover.ennemi(bonus);
         vaisseau = new Vaisseau(mover);
         terrain = ((PositionUpdateImpl) mover).getTerrain();
         bonus = new Bonus(terrain);
+        mover.ennemi(bonus);
     }
 
     private boolean locked() {

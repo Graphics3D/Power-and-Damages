@@ -87,6 +87,10 @@ public class EcDrawer extends Drawer implements Runnable {
      * @see be.ibiiztera.darkfortress.Drawer#dessiner()
      */
     public void dessiner() {
+            mover.testCollision();
+            
+            
+            
         Graphics g = component.getGraphics();
 
         //z.couleurDeFond(new TColor(Color.BLACK));

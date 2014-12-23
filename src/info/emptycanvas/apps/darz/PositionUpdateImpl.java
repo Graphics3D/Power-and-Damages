@@ -11,6 +11,7 @@ import java.util.Iterator;
 import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.Representable;
 import info.emptycanvas.library.tribase.TRISphere;
+import java.awt.Color;
 import java.awt.Image;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -130,8 +131,8 @@ public class PositionUpdateImpl implements PositionUpdate, Runnable {
                 if ((bon = it.next()) != null && bon instanceof TRISphere2
                         && Point3D.distance(((TRISphere2) bon).getCentre(), pos) < collision_distance) {
                     
-                    ImageTexture imageTexture;
-                    imageTexture = new ImageTexture(new ECBufferedImage(ImageIO.read(getClass().getResourceAsStream("skullhead.png"))));
+                    ColorTexture imageTexture;
+                    imageTexture = new ColorTexture(Color.BLACK);
                     
                     ((TRISphere2)bon).texture(imageTexture);
                     
@@ -139,6 +140,8 @@ public class PositionUpdateImpl implements PositionUpdate, Runnable {
                     
                     bonus.remove(bon);
 
+                    //bonus.getListRepresentable().removeAll(bonus.getListRepresentable());
+                    
                     int points = 10;
 
                     score += points;
@@ -148,8 +151,6 @@ public class PositionUpdateImpl implements PositionUpdate, Runnable {
                 }
             }
         } catch (ConcurrentModificationException | java.util.NoSuchElementException ex) {
-        } catch (IOException ex) {
-            Logger.getLogger(PositionUpdateImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
