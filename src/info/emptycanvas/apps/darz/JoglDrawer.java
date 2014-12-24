@@ -29,6 +29,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
+import jogamp.graph.font.typecast.ot.table.HdmxTable.DeviceRecord;
+
 public class JoglDrawer extends Drawer implements GLEventListener {
 
     private GLU glu = new GLU();
@@ -46,8 +48,10 @@ public class JoglDrawer extends Drawer implements GLEventListener {
         this.component = darkFortressGUI;
 
         GLProfile.initSingleton();
-
+        GLProfile.initProfiles(GLProfile.getDefaultDevice());
         GLProfile profile = GLProfile.getDefault();
+        System.out.println("Profil GL4 : "+GLProfile.isAvailable("GL4"));
+
 
         GLCapabilities capabilities = new GLCapabilities(profile);
         capabilities.setDoubleBuffered(true);
