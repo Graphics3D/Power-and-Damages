@@ -80,7 +80,7 @@ public class JoglDrawer extends Drawer implements GLEventListener {
 
     public void draw(SegmentDroite segd, GLU glu, GL2 gl) {
         gl.glBegin(GL2.GL_LINES);
-        color(gl, segd.getC());
+        color(gl, new Color(segd.texture().getColorAt(0.5, 0.5)));
         gl.glVertex3f((float) segd.getOrigine().get(0), (float) segd
                 .getOrigine().get(1), (float) segd.getOrigine().get(2));
         gl.glVertex3f((float) segd.getExtremite().get(0), (float) segd

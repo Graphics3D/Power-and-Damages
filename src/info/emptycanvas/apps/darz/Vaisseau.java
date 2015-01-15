@@ -9,6 +9,7 @@
  */
 package info.emptycanvas.apps.darz;
 
+import info.emptycanvas.library.object.ColorTexture;
 import info.emptycanvas.library.object.Cube;
 import java.awt.Color;
 
@@ -25,6 +26,6 @@ class Vaisseau {
     }
 
     public Cube getObject() {
-        return new Cube(0.001, gm.calcDirection(), Color.GREEN);
+        return new Cube(0.001, gm.calcDirection(),new ColorTexture( Color.GREEN));
     }
 }

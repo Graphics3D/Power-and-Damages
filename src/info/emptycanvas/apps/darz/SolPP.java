@@ -12,6 +12,7 @@
 package info.emptycanvas.apps.darz;
 
 import info.emptycanvas.library.nurbs.ParametrizedSurface;
+import info.emptycanvas.library.object.ColorTexture;
 import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.RepresentableConteneur;
 import info.emptycanvas.library.object.SegmentDroite;
@@ -47,12 +48,12 @@ public class SolPP {
                 Point3D p1 = sol.calculerPoint3D(j, i);
                 Point3D p2 = sol.calculerPoint3D(j + INCR, i);
 
-                rc.add(new SegmentDroite(p1, p2, Color.WHITE));
+                rc.add(new SegmentDroite(p1, p2, new ColorTexture(Color.WHITE)));
 
                 p1 = sol.calculerPoint3D(j, i);
                 p2 = sol.calculerPoint3D(j, i + INCR);
 
-                rc.add(new SegmentDroite(p1, p2, Color.WHITE));
+                rc.add(new SegmentDroite(p1, p2, new ColorTexture(Color.WHITE)));
             }
         }
 
