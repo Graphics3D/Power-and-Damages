@@ -21,12 +21,17 @@ import java.util.Collection;
 public class Weird {
     Terrain t;
     Player p;
-
+    SimpleTrajectory simpleTrajectory;
+    private double longpc, latpc;
     public Weird(Terrain t, Player p) {
         this.t = t;
         this.p = p;
         
-        new SimpleTrajectory();
+        simpleTrajectory = new SimpleTrajectory();
+        for(int i=0; i<100; i++)
+        {
+            //simpleTrajectory.addPoints(null);
+        }
     }
 
     

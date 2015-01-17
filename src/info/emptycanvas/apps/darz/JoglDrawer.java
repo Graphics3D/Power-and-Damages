@@ -25,6 +25,7 @@ import info.emptycanvas.library.tribase.TRIObjetGenerateurAbstract;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.IOException;
+import java.util.ConcurrentModificationException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -126,8 +127,14 @@ public class JoglDrawer extends Drawer implements GLEventListener {
     public void draw(RepresentableConteneur rc, GLU glu, GL2 gl) {
         Iterator<Representable> it = rc.iterator();
         while (it.hasNext()) {
-            Representable r = it.next();
-
+            Representable r = null;
+            try
+            {
+                r = it.next();
+            }
+            catch(ConcurrentModificationException ex){
+                break;
+            }
             if (r instanceof TRI) {
                 draw((TRI) r, glu, gl);
             } else if (r instanceof SegmentDroite) {
