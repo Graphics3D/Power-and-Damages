@@ -20,28 +20,25 @@ import info.emptycanvas.library.tribase.TRIObjetGenerateur;
 import info.emptycanvas.library.object.RepresentableConteneur;
 import com.jogamp.opengl.util.awt.TextRenderer;
 import info.emptycanvas.library.object.Cube;
+import info.emptycanvas.library.object.TRIConteneur;
+import info.emptycanvas.library.object.TRIGenerable;
 import info.emptycanvas.library.object.TRIObject;
-import info.emptycanvas.library.tribase.TRIObjetGenerateurAbstract;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.io.IOException;
 import java.util.ConcurrentModificationException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-
-import jogamp.graph.font.typecast.ot.table.HdmxTable.DeviceRecord;
+import java.util.function.Consumer;
 
 public class JoglDrawer extends Drawer implements GLEventListener {
 
-    private GLU glu = new GLU();
-    private Object component;
+    private final GLU glu = new GLU();
+    private final Object component;
     private PositionUpdate mover;
     private Terrain terrain;
     private Bonus bonus;
     private TextRenderer renderer;
     private Vaisseau vaisseau;
     private boolean locked;
+    private Circuit circuit;
     Timer timer;
     private final GLCanvas glcanvas;
 
@@ -123,7 +120,18 @@ public class JoglDrawer extends Drawer implements GLEventListener {
             }
         }
     }
-
+    public void draw(TRIGenerable gen, GLU glu, GL2 gl)
+    {
+        draw(gen.generate(), glu, gl);
+    }
+    public void draw(TRIObject gen, GLU glu, GL2 gl)
+    {
+        gen.getTriangles().forEach((TRI t) -> {
+            draw(t, glu, gl);
+        });
+        
+    }
+    
     public void draw(RepresentableConteneur rc, GLU glu, GL2 gl) {
         Iterator<Representable> it = rc.iterator();
         while (it.hasNext()) {
@@ -147,12 +155,22 @@ public class JoglDrawer extends Drawer implements GLEventListener {
         }
     }
 
-    public void draw(TRIObject generate, GLU glu, GL2 gl) {
-        Iterator<TRI> it = generate.iterator();
-        while (it.hasNext()) {
-            TRI t = it.next();
-            draw(t, glu, gl);
-        }
+    public void draw(TRIConteneur con, GLU glu, GL2 gl) {
+        /*if(con.getObj()==null && con instanceof TRIGenerable)
+        {
+        ((TRIGenerable)con).generate();
+        }*/
+        Iterable<TRI> iterable = con.iterable();
+        iterable.forEach(new Consumer<TRI>()
+        {
+
+            @Override
+            public void accept(TRI t) {
+                    draw(t, glu, gl);
+    }
+        });
+            
+        
     }
 
     public void draw(Cube c, GLU glu, GL2 gl) {
@@ -205,7 +223,10 @@ public class JoglDrawer extends Drawer implements GLEventListener {
                 .norme1().get(1),
                 del.prodVect(Point3D.Y.prodVect(del))
                 .norme1().get(2));
-
+        if(circuit==null)
+            circuit = mover.getCircuit();
+        if(circuit!=null)
+            draw((TRIConteneur)circuit, glu, gl);
         draw(bonus, glu, gl);
         draw(new Ciel().getBleu(), glu, gl);
         draw(terrain, glu, gl);
@@ -235,7 +256,7 @@ public class JoglDrawer extends Drawer implements GLEventListener {
 
         draw(vaisseau.getObject(), glu, gl);
         draw("Score :  " + mover.score(), Color.WHITE, glu, gl);
-
+        
         Graphics g = null;
         if (component instanceof JApplet) {
             g = ((JApplet) component).getGraphics();

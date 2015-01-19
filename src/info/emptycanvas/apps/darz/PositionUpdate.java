@@ -56,4 +56,7 @@ public interface PositionUpdate extends Runnable
     public int STATE_GAME_IN_PROGRESS();
     
     public void setTerrain(Terrain t);
+    
+    public Circuit getCircuit();
+    
 }

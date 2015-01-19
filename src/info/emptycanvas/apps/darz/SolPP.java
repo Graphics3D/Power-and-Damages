@@ -16,7 +16,6 @@ import info.emptycanvas.library.object.ColorTexture;
 import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.RepresentableConteneur;
 import info.emptycanvas.library.object.SegmentDroite;
-import info.emptycanvas.library.object.TRI;
 import java.awt.Color;
 
 /**

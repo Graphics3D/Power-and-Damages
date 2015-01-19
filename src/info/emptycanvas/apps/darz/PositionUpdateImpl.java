@@ -6,11 +6,7 @@ import java.util.Iterator;
 
 import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.Representable;
-import info.emptycanvas.library.tribase.TRISphere;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.ConcurrentModificationException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,11 +31,17 @@ public class PositionUpdateImpl implements PositionUpdate, Runnable {
     private Terrain terrain;
     private double collision_distance = 0.05;
     private final Ciel bleu;
+    private final Circuit circuit;
+
+    public Circuit getCircuit() {
+        return circuit;
+    }
 
     public PositionUpdateImpl(Terrain t) {
         this.terrain = t;
         bonus = new Bonus(terrain);
         bleu = new Ciel();
+        circuit = new Circuit(bonus);
     }
 
     @Override
