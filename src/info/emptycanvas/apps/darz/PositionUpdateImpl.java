@@ -31,7 +31,7 @@ public class PositionUpdateImpl implements PositionUpdate, Runnable {
     private Terrain terrain;
     private double collision_distance = 0.05;
     private final Ciel bleu;
-    private final Circuit circuit;
+    private Circuit circuit;
 
     public Circuit getCircuit() {
         return circuit;
@@ -132,6 +132,9 @@ public class PositionUpdateImpl implements PositionUpdate, Runnable {
 
                     System.out.println(score);
 
+                    
+                    circuit = new Circuit(bonus);
+                    
                 }
             }
         } catch (ConcurrentModificationException | java.util.NoSuchElementException ex) {

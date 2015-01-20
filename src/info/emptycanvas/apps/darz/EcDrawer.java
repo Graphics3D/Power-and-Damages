@@ -9,11 +9,6 @@ import info.emptycanvas.library.object.Scene;
 import info.emptycanvas.library.object.TColor;
 import info.emptycanvas.library.object.ZBuffer;
 import info.emptycanvas.library.object.ZBufferFactory;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 
 public class EcDrawer extends Drawer implements Runnable {
 
@@ -97,6 +92,7 @@ public class EcDrawer extends Drawer implements Runnable {
             z.scene(new Scene());
 
             if (mover != null) {
+                z.scene().add(mover.getCircuit());
                 z.scene().add(terrain);
                 z.scene().add(bonus);
                 z.scene().add(vaisseau.getObject());
@@ -114,7 +110,7 @@ public class EcDrawer extends Drawer implements Runnable {
 
             Graphics g2 = ri.getGraphics();
             g2.setColor(Color.WHITE);
-            g2.drawString("Score : " + mover.score(), 0, ri.getHeight() - 40);
+            //g2.drawString("Score : " + mover.score(), 0, ri.getHeight() - 40);
 
             g.drawImage(ri, 0, 0, component.getWidth(), component.getHeight(), null);
 
