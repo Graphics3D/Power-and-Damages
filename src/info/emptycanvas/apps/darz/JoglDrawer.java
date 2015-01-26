@@ -20,6 +20,7 @@ import info.emptycanvas.library.tribase.TRIObjetGenerateur;
 import info.emptycanvas.library.object.RepresentableConteneur;
 import com.jogamp.opengl.util.awt.TextRenderer;
 import info.emptycanvas.library.object.Cube;
+import info.emptycanvas.library.object.Point2D;
 import info.emptycanvas.library.object.TRIConteneur;
 import info.emptycanvas.library.object.TRIGenerable;
 import info.emptycanvas.library.object.TRIObject;
@@ -352,6 +353,11 @@ public class JoglDrawer extends Drawer implements GLEventListener {
 
     private double time() {
         return timer.getTimeEllapsed();
+    }
+
+    @Override
+    public SegmentDroite click(Point2D p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

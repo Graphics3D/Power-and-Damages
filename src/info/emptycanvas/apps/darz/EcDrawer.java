@@ -5,7 +5,9 @@ import java.awt.Graphics;
 
 import info.emptycanvas.library.object.Camera;
 import info.emptycanvas.library.object.ECBufferedImage;
+import info.emptycanvas.library.object.Point2D;
 import info.emptycanvas.library.object.Scene;
+import info.emptycanvas.library.object.SegmentDroite;
 import info.emptycanvas.library.object.TColor;
 import info.emptycanvas.library.object.ZBuffer;
 import info.emptycanvas.library.object.ZBufferFactory;
@@ -119,6 +121,11 @@ public class EcDrawer extends Drawer implements Runnable {
 
     public boolean isLocked() {
         return z.isLocked();
+    }
+
+    @Override
+    public SegmentDroite click(Point2D p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

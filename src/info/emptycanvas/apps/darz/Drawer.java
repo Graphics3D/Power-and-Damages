@@ -1,21 +1,18 @@
 package info.emptycanvas.apps.darz;
 
+import info.emptycanvas.library.object.Point2D;
+import info.emptycanvas.library.object.SegmentDroite;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.UIManager;
 
 public abstract class Drawer {
 
+    
     public abstract void setLogic(PositionUpdate l);
 
     public void initFrame(JFrame component) {
@@ -42,4 +39,11 @@ public abstract class Drawer {
 
         
     }
+
+    /**
+     *
+     * @param p Point 2D in the window (mouse cordinates)
+     * @return Segment Near Far direction of click
+     */
+    public abstract SegmentDroite click(Point2D p);
 }
