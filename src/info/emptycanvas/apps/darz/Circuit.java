@@ -13,11 +13,13 @@ Global license :
 package info.emptycanvas.apps.darz;
 
 import info.emptycanvas.apps.darz.Bonus.TRISphere2;
+import info.emptycanvas.library.object.ColorTexture;
 import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.Representable;
 import info.emptycanvas.library.tribase.TubulaireN;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.awt.Color;
 
 /**
  *
@@ -29,6 +31,7 @@ public class Circuit extends TubulaireN
    public Circuit(ArrayList<Point3D> listPoint3d)
    {
        listPoint3d.forEach(this::addPoint);
+       this.texture(new ColorTexture(Color.ORANGE));
    }
 
     public Circuit(Bonus bonus) {
@@ -40,6 +43,8 @@ public class Circuit extends TubulaireN
            {
                addPoint(((TRISphere2)next).getCentre());
            }
+           
+           this.texture(new ColorTexture(Color.ORANGE));
        }
        
        
