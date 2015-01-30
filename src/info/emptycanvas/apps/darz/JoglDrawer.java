@@ -1,5 +1,6 @@
 package info.emptycanvas.apps.darz;
 
+import com.jogamp.newt.event.KeyEvent;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Iterator;
@@ -19,6 +20,7 @@ import info.emptycanvas.library.object.TRI;
 import info.emptycanvas.library.tribase.TRIObjetGenerateur;
 import info.emptycanvas.library.object.RepresentableConteneur;
 import com.jogamp.opengl.util.awt.TextRenderer;
+import com.sun.scenario.effect.impl.BufferUtil;
 import info.emptycanvas.library.object.Cube;
 import info.emptycanvas.library.object.Point2D;
 import info.emptycanvas.library.object.TRIConteneur;
@@ -26,6 +28,7 @@ import info.emptycanvas.library.object.TRIGenerable;
 import info.emptycanvas.library.object.TRIObject;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.nio.IntBuffer;
 import java.util.ConcurrentModificationException;
 import java.util.function.Consumer;
 
@@ -42,6 +45,8 @@ public class JoglDrawer extends Drawer implements GLEventListener {
     private Circuit circuit;
     Timer timer;
     private final GLCanvas glcanvas;
+    private int BUFSIZE;
+    private Point2D pickPoint;
 
     public JoglDrawer(DarkFortressGUI darkFortressGUI) {
         this.component = darkFortressGUI;
@@ -357,7 +362,130 @@ public class JoglDrawer extends Drawer implements GLEventListener {
 
     @Override
     public SegmentDroite click(Point2D p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        GLU glul = this.glu;
+        
+        /*
+                double aspect = double(glcanvas.getWidth())/double(glcanvas.getHeight()); 
+                glu.glMatrixMode( GL_PROJECTION ); 
+                glLoadIdentity(); 
+                glFrustum(-near_height * aspect,    
+                        near_height * aspect,    
+                        -near_height,    
+                        near_height, 
+                        zNear, 
+                        zFar ); 
+        int window_y = (window_height - mouse_y) - window_height/2; 
+        double norm_y = double(window_y)/double(window_height/2); 
+        int window_x = mouse_x - window_width/2; 
+        double norm_x = double(window_x)/double(window_width/2); 
+        float y = near_height * norm_y; float x = near_height * aspect * norm_x; 
+        float ray_pnt[4] = {0.f, 0.f, 0.f, 1.f}; float ray_vec[4] = {x, y, -near_distance, 0.f}; 
+
+        GLuint buffer[BUF_SIZE]; glSelectBuffer (BUF_SIZE, buffer); 
+        GLint hits; glRenderMode(GL_SELECT);
+        glRenderMode(GL_RENDER); 
+                */
+        return null;
     }
 
+  /*
+   * prints out the contents of the selection array.
+   */
+  private void processHits(int hits, int buffer[])
+  {
+    int names, ptr = 0;
+
+    System.out.println("hits = " + hits);
+    // ptr = (GLuint *) buffer;
+    for (int i = 0; i < hits; i++)
+    { /* for each hit */
+      names = buffer[ptr];
+      System.out.println(" number of names for hit = " + names);
+      ptr++;
+      System.out.println("  z1 is " + buffer[ptr]);
+      ptr++;
+      System.out.println(" z2 is " + buffer[ptr]);
+      ptr++;
+      System.out.print("\n   the name is ");
+      for (int j = 0; j < names; j++)
+      { /* for each name */
+        System.out.println("" + buffer[ptr]);
+        ptr++;
+      }
+      System.out.println();
+    }
+  }
+private void drawRects(GL2 gl, int mode)
+  {
+    if (mode == GL2.GL_SELECT) gl.glLoadName(1);
+    gl.glBegin(GL2.GL_QUADS);
+    gl.glColor3f(1.0f, 1.0f, 0.0f);
+    gl.glVertex3i(2, 0, 0);
+    gl.glVertex3i(2, 6, 0);
+    gl.glVertex3i(6, 6, 0);
+    gl.glVertex3i(6, 0, 0);
+    gl.glColor3f(0.0f, 1.0f, 1.0f);
+    gl.glVertex3i(3, 2, -1);
+    gl.glVertex3i(3, 8, -1);
+    gl.glVertex3i(8, 8, -1);
+    gl.glVertex3i(8, 2, -1);
+    gl.glColor3f(1.0f, 0.0f, 1.0f);
+    gl.glVertex3i(0, 2, -2);
+    gl.glVertex3i(0, 7, -2);
+    gl.glVertex3i(5, 7, -2);
+    gl.glVertex3i(5, 2, -2);
+    gl.glEnd();
+  }
+  /*
+   * sets up selection mode, name stack, and projection matrix for picking. Then
+   * the objects are drawn.
+   */
+  private void pickRects(GL2 gl)
+  {
+    int[] selectBuf = new int[BUFSIZE];
+    IntBuffer selectBuffer = BufferUtil.newIntBuffer(BUFSIZE);
+    int hits;
+    int viewport[] = new int[4];
+    // int x, y;
+
+    gl.glGetIntegerv(GL.GL_VIEWPORT, viewport, 0);
+
+    gl.glSelectBuffer(BUFSIZE, selectBuffer);
+    gl.glRenderMode(GL2.GL_SELECT);
+
+    gl.glInitNames();
+    gl.glPushName(-1);
+
+    gl.glMatrixMode(GL2.GL_PROJECTION);
+    gl.glPushMatrix();
+    gl.glLoadIdentity();
+    /* create 5x5 pixel picking region near cursor location */
+    glu.gluPickMatrix((double) pickPoint.getX(),
+        (double) (viewport[3] - pickPoint.getY()), //
+        5.0, 5.0, viewport, 0);
+    gl.glOrtho(0.0, 8.0, 0.0, 8.0, -0.5, 2.5);
+    drawRects(gl, GL2.GL_SELECT);
+    gl.glPopMatrix();
+    gl.glFlush();
+
+    hits = gl.glRenderMode(GL2.GL_RENDER);
+    selectBuffer.get(selectBuf);
+    processHits(hits, selectBuf);
+  }
+
+  public void keyTyped(KeyEvent key)
+  {
+  }
+
+  public void keyPressed(KeyEvent key)
+  {
+    switch (key.getKeyChar()) {
+      case KeyEvent.VK_ESCAPE:
+        System.exit(0);
+        break;
+
+      default:
+        break;
+    }
+  }
 }
