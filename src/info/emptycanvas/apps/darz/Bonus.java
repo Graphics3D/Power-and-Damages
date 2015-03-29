@@ -1,5 +1,6 @@
 package info.emptycanvas.apps.darz;
 
+import info.emptycanvas.library.object.ColorTexture;
 import info.emptycanvas.library.object.ITexture;
 import java.awt.Color;
 import java.util.Random;
@@ -60,7 +61,7 @@ public class Bonus extends RepresentableConteneur {
 
         for (int i = 0; i < SIZE; i++) {
             TRISphere2 s = new TRISphere2(Point3D.O0, 0.01);
-            s.texture((ITexture) new TColor(Color.RED));
+            s.texture(new ColorTexture(Color.RED));
 
             s.setMaxX(4);
 

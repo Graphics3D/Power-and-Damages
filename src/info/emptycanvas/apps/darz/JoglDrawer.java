@@ -229,10 +229,11 @@ public class JoglDrawer extends Drawer implements GLEventListener {
                 .norme1().get(1),
                 del.prodVect(Point3D.Y.prodVect(del))
                 .norme1().get(2));
-        if(circuit==null)
+        /*if(circuit==null)
             circuit = mover.getCircuit();
         if(circuit!=null)
             draw((TRIConteneur)circuit, glu, gl);
+        /**/
         draw(bonus, glu, gl);
         draw(new Ciel().getBleu(), glu, gl);
         draw(terrain, glu, gl);
