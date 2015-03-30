@@ -9,6 +9,6 @@ package info.emptycanvas.apps.darz.help;
  *
  * @author Se7en
  */
-public class MouvementDirectionnel extends BonusClass{
+public class BonusClass {
     
 }

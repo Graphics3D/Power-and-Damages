@@ -14,7 +14,7 @@ import info.emptycanvas.library.gdximports.gdx_BSplineCurve;
  * long d'une BSpline pour attraper les objets.
  * @author Se7en
  */
-public class Escargot {
+public class Escargot extends BonusClass {
      public gdx_BSplineCurve bspline(Bonus b, double escargotSize, double escargotVelocity)
     {
        throw new UnsupportedOperationException("Pas encore implanté");

@@ -13,7 +13,7 @@ import info.emptycanvas.library.gdximports.gdx_BSplineCurve;
  * le long d'un b-spline 30 objets/1000 en 20 secondes.
  * @author Se7en
  */
-public class Cheval_Licorne {
+public class Cheval_Licorne  extends BonusClass {
     public gdx_BSplineCurve bspline(Bonus b, double chevalSize, double chevalVelocity)
     {
           throw new UnsupportedOperationException("Pas encore implanté");

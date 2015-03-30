@@ -1,18 +1,17 @@
 package info.emptycanvas.apps.darz;
 
+import info.emptycanvas.apps.darz.help.BonusClass;
+import info.emptycanvas.apps.darz.help.Cheval_Licorne;
+import info.emptycanvas.apps.darz.help.Escargot;
 import info.emptycanvas.apps.darz.help.MouvementDirectionnel;
 import info.emptycanvas.library.object.ColorTexture;
-import info.emptycanvas.library.object.ITexture;
 import java.awt.Color;
 import java.util.Random;
 
 import info.emptycanvas.library.object.Point3D;
 import info.emptycanvas.library.object.Representable;
-import info.emptycanvas.library.object.TColor;
 import info.emptycanvas.library.tribase.TRISphere;
 import info.emptycanvas.library.object.RepresentableConteneur;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Bonus extends RepresentableConteneur {
 
@@ -30,13 +29,14 @@ public class Bonus extends RepresentableConteneur {
         fuite = Integer.parseInt(bundle.getString("fuite.size"));
     }
 
-    class TRISphere2 extends TRISphere {
+    class TRISphere2<T extends BonusClass> extends TRISphere {
 
         double u;
         double v;
-
+        BonusClass clazz;
         public TRISphere2(Point3D c, double r) {
             super(c, r);
+            clazz = new BonusClass();
         }
 
         {
@@ -56,7 +56,10 @@ public class Bonus extends RepresentableConteneur {
         public synchronized Point3D getCentre() {
             return super.getCentre().plus(terrain.calcCposition(u, v));
         }
-
+        public BonusClass getBonusClass()
+        {
+            return clazz;
+        }
     }
 
     Random r = new Random();
@@ -66,7 +69,7 @@ public class Bonus extends RepresentableConteneur {
         this.terrain = t;
 
         for (int i = 0; i < SIZE; i++) {
-            TRISphere2 s = new TRISphere2(Point3D.O0, 0.01);
+            TRISphere2<BonusClass> s = new TRISphere2<>(Point3D.O0, 0.01);
             s.texture(new ColorTexture(Color.RED));
 
             s.setMaxX(4);
@@ -77,7 +80,8 @@ public class Bonus extends RepresentableConteneur {
 
         }
         for (int i = 0; i < licorne; i++) {
-            TRISphere2 s = new TRISphere2(Point3D.O0, 0.01);
+            TRISphere2<Cheval_Licorne> s;
+            s = new TRISphere2<>(Point3D.O0, 0.01);
             s.texture(new ColorTexture(Color.BLUE));
 
             s.setMaxX(4);
@@ -88,7 +92,7 @@ public class Bonus extends RepresentableConteneur {
 
         }
         for (int i = 0; i < escargot; i++) {
-            TRISphere2 s = new TRISphere2(Point3D.O0, 0.01);
+            TRISphere2<Escargot> s = new TRISphere2<>(Point3D.O0, 0.01);
             s.texture(new ColorTexture(Color.GRAY));
 
             s.setMaxX(4);
@@ -99,7 +103,7 @@ public class Bonus extends RepresentableConteneur {
 
         }
         for (int i = 0; i < fuite; i++) {
-            TRISphere2 s = new TRISphere2(Point3D.O0, 0.01);
+            TRISphere2<MouvementDirectionnel> s = new TRISphere2<>(Point3D.O0, 0.01);
             s.texture(new ColorTexture(Color.GREEN));
 
             s.setMaxX(4);
