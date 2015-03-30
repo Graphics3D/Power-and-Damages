@@ -1,5 +1,6 @@
 package info.emptycanvas.apps.darz;
 
+import info.emptycanvas.apps.darz.help.MouvementDirectionnel;
 import info.emptycanvas.library.object.ColorTexture;
 import info.emptycanvas.library.object.ITexture;
 import java.awt.Color;
@@ -17,11 +18,16 @@ public class Bonus extends RepresentableConteneur {
 
     private final Terrain terrain;
     private static final int SIZE;
+    private static final int licorne;
+    private static final int escargot;
+    private static final int fuite;
 
     static {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("info/emptycanvas/apps/darz/Bundle"); // NOI18N
-        SIZE = Integer.parseInt(bundle.getString("Bonus_Size"));
-
+        SIZE = Integer.parseInt(bundle.getString("bonus.size"));
+        licorne = Integer.parseInt(bundle.getString("licorne.size"));
+        escargot = Integer.parseInt(bundle.getString("escargot.size"));
+        fuite = Integer.parseInt(bundle.getString("fuite.size"));
     }
 
     class TRISphere2 extends TRISphere {
@@ -62,6 +68,39 @@ public class Bonus extends RepresentableConteneur {
         for (int i = 0; i < SIZE; i++) {
             TRISphere2 s = new TRISphere2(Point3D.O0, 0.01);
             s.texture(new ColorTexture(Color.RED));
+
+            s.setMaxX(4);
+
+            s.setMaxY(4);
+
+            add(s);
+
+        }
+        for (int i = 0; i < licorne; i++) {
+            TRISphere2 s = new TRISphere2(Point3D.O0, 0.01);
+            s.texture(new ColorTexture(Color.BLUE));
+
+            s.setMaxX(4);
+
+            s.setMaxY(4);
+
+            add(s);
+
+        }
+        for (int i = 0; i < escargot; i++) {
+            TRISphere2 s = new TRISphere2(Point3D.O0, 0.01);
+            s.texture(new ColorTexture(Color.GRAY));
+
+            s.setMaxX(4);
+
+            s.setMaxY(4);
+
+            add(s);
+
+        }
+        for (int i = 0; i < fuite; i++) {
+            TRISphere2 s = new TRISphere2(Point3D.O0, 0.01);
+            s.texture(new ColorTexture(Color.GREEN));
 
             s.setMaxX(4);
 

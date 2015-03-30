@@ -47,7 +47,15 @@ public class JoglDrawer extends Drawer implements GLEventListener {
     private final GLCanvas glcanvas;
     private int BUFSIZE;
     private Point2D pickPoint;
-
+    private PiloteAuto piloteAuto;
+    private PiloteAuto piloteAuto()
+    {
+        return piloteAuto;
+    }
+    private void piloteAuto(PiloteAuto pa)
+    {
+        piloteAuto = pa;
+    }
     public JoglDrawer(DarkFortressGUI darkFortressGUI) {
         this.component = darkFortressGUI;
 
