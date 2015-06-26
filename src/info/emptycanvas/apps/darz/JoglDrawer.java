@@ -37,11 +37,11 @@ public class JoglDrawer extends Drawer implements GLEventListener {
     private Point2D pickPoint;
     private PiloteAuto piloteAuto;
 
-    private PiloteAuto piloteAuto() {
+    public PiloteAuto piloteAuto() {
         return piloteAuto;
     }
 
-    private void piloteAuto(PiloteAuto pa) {
+    public void piloteAuto(PiloteAuto pa) {
         piloteAuto = pa;
     }
 
